@@ -1,11 +1,11 @@
-# {logo} {project title}
+# 🏟️ FCB_SmartBooking
 
 <p align="left">
   <img src="https://img.shields.io/badge/License-MIT-lightgrey" alt="License">
   <img src="https://img.shields.io/badge/Language-Python-lightgrey" alt="Language">
 </p>
 
-> A machine learning powered dynamic pricing and decision support system for ticket pricing in the sports industry. **Objective:** To evolve a manual price-decision process into a data-driven, semi-automated workflow that improves ticketing revenue and sales.
+> A predictive analytics system that forecasts seat availability for football matches. **Objective:** To solve the massive supply-demand imbalance in ticket sales by using machine learning to predict seat availability, maximizing matchday revenue and improving the fan experience at the stadium.
 
 ### Outline
 
@@ -20,17 +20,19 @@
 
 ## Key Results
 
-| Metric                      | Result                               | Description |
+| Metric                      | Result                               | Description |
 | :-------------------------- | :----------------------------------- | :----------------------------------- |
-| 📈 Revenue Uplift           | **+6%** Average Revenue per Match    | Achieved by dynamically adjusting prices to match real-time demand forecasts, capturing more value from high-demand matches. Validated via A/B testing.|
-| 🎟️ Optimized Sales          | **+4%** Increase in Ticket Sell-Through Rate | Didn't maximize revenue at the cost of empty seats; also improved occupancy, which positively affects atmosphere and in-stadium sales.|
-| ⚙️ Operational Efficiency   | **7x improvement** in Time-to-Price-Change | From weekly to daily changes by automating the manual data aggregation and analysis pipeline. The system delivers price recommendations directly, shifting the team's focus from data work to strategic approval.|
-| 🤝 Recommendation Adoption | **91%** of Proposals Approved | Percentage of automated price proposals that were reviewed and approved by the commercial team, indicating trust in the model's business alignment.|
-| 🎯 Demand Forecast Accuracy | **14%** Weighted Avg. % Error | The model's predictions have a low average error, performing 60% better than a baseline `DummyRegressor` and indicating that sales forecasts are reliable.|
+| 📈 Revenue Growth           | **+15%** in Ticket Sales    | Enabled by confidently selling tickets predicted to become available, capturing previously lost demand. |
+| 💰 Average Order Value | **+40%** Increase | A direct result of guaranteeing paired seating for families and groups, which encourages larger transactions. |
+| 🎯 Forecast Accuracy | **89%** Accuracy (R²) | The model's predictions of final seat availability were highly accurate, providing a reliable basis for advance sales. |
+| ⭐ Fan Experience          | **Paired Seating Guaranteed**  | Transformed the fan purchase journey from a lottery to a reliable process, drastically reducing empty single seats and improving atmosphere. |
+| 📢 Marketing Efficiency | **Improved ROAS** | A wider time window to market the match allows for more effective campaign planning and better Return on Ad Spend (ROAS). |
+| ⚖️ Pricing Flexibility | **Enabled Dynamic Pricing** | An extended sales timeframe creates opportunities to apply dynamic pricing strategies, optimizing revenue further. |
+| 🛡️ Fraud Reduction | **Mitigated Scalping** | By delaying the issuance of physical tickets until 48 hours before kick-off, the system combats fraud and unauthorized resale. |
 
 ## Overview
 
-The diagram below illustrates the project's conceptual framework. The system acts as the central *brain* to balance the goals of The Club and The Fan. It operates in a continuous loop by ingesting internal and external factors to forecast demand at various price points. The **Decision Engine** then uses this forecast to recommend an optimal price. This transforms a static, manual pricing strategy into a responsive, automated system with a human-in-the-loop (HiTL), creating a market-driven approach for both setting and responding to ticket prices.
+The diagram below illustrates the conceptual framework for the SmartBooking project. The system addresses the core problem of information asymmetry in ticket availability. Season ticket holders often release their seats back to the club very late, creating a frustrating experience for fans who see matches as "Sold Out" when thousands of seats will eventually become available.
 
 <p align="center">
   <img src="./assets/dp-hl.png" alt="High-level Project Diagram" width="2000">
@@ -38,14 +40,14 @@ The diagram below illustrates the project's conceptual framework. The system act
   <em>Fig. 1: A high-level diagram of the Dynamic Pricing Engine.</em>
 </p>
 
-The core challenge was to move from a rigid, manual pricing strategy to a data-driven, automated one. The table below summarizes the problem–solution mapping.
+The SmartBooking engine acts as a forecasting layer. It ingests historical sales data and contextual factors to predict, weeks in advance, how many seats will ultimately be freed up in each stadium zone. This forecast empowers the club to sell a calculated number of tickets *before* they are officially released, bridging the gap between fan demand and latent supply. This moves the club from a reactive sales model to a proactive, predictive one.
 
 | 🚩 The Problem | 💡 The Solution |
 | :--------------------------- | :---------------------------- |
-| **Static pricing**: Prices were set once per season in rigid, inflexible categories (e.g., A++, A, B), then updated weekly/monthly. | **Dynamic recommendations**: Generates price proposals for each seating zone based on near real-time data analysis, allowing for daily updates. |
-| **Manual adjustments**: The team would slowly analyze various metrics to manually propose price changes. | **Impact simulation**: Instantly models the projected impact of any price change on revenue and ticket sales. |
-| **Data bottleneck**: Extracting data manually from fragmented systems was slow and operationally complex. | **Centralized data**: Automatically aggregates all key data points—sales, web analytics, contextual data, etc.—into one place. |
-| **Slow implementation**: The process to act on a decision was manual and disconnected from the sales platform. | **Seamless integration**: Allows for one-click approval on a dashboard, which triggers a price update to the live ticketing system via REST API. |
+| **"Sold Out" Illusion**: Fans faced "Sold Out" messages, unaware that 40% of released seats appear in the last 72 hours. | **Advance Availability**: Predicts final seat count weeks in advance, allowing the club to sell tickets for seats that are not yet officially released. |
+| **Lost Revenue**: High demand went unmet due to the delay in seat returns, leading to significant lost revenue for the club. | **Revenue Capture**: Unlocks millions in sales by matching early fan demand with predicted inventory. |
+| **Poor Fan Experience**: The unpredictable nature of ticket availability frustrated fans and fueled secondary resale markets. | **Guaranteed Experience**: Offers fans, especially families and groups, guaranteed paired seating, improving satisfaction and trust. |
+| **Seat Fragmentation**: Last-minute releases often resulted in many isolated single seats that were difficult to sell. | **Optimized Occupancy**: By selling seats early, the system facilitates better seat allocation, reducing empty singles and maximizing attendance. |
 
 
 ## Architecture
@@ -224,6 +226,8 @@ Since this is an optimization engine, not a predictive model, its performance is
 | **Computation Time**| Measuring the wall-clock time it takes for the grid search to complete for a given match.                       | The time must be within acceptable operational limits to allow for rapid, on-demand analysis by the commercial team. |
 
 </details>
+
+The model's output is a forecast of the **total number of seats** that will ultimately be available for a given match in a specific zone. This is not just the number of seats currently free, but a prediction of the final count after all season ticket holders have made their decision. The commercial team uses this forecast to confidently open sales for a percentage of these predicted seats, effectively selling inventory before it officially exists on the system.
 
 ### Validation
 

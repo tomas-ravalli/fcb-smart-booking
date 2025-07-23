@@ -27,7 +27,7 @@
 | 🎯 Forecast Accuracy | **89%** Accuracy (R²) | The model's predictions of final seat availability were highly accurate, providing a reliable basis for advance sales. |
 | ⭐ Fan Experience          | **Paired Seating Guaranteed**  | Transformed the fan purchase journey from a lottery to a reliable process, drastically reducing empty single seats and improving atmosphere. |
 | 📢 Marketing Efficiency | **Improved ROAS** | A wider time window to market the match allows for more effective campaign planning and better Return on Ad Spend (ROAS). |
-| ⚖️ Pricing Flexibility | **Enabled Dynamic Pricing** | An extended sales timeframe creates opportunities to apply dynamic pricing strategies, optimizing revenue further. |
+| ⚖️ Pricing Flexibility | **Enabled Dynamic Pricing** | An extended sales timeframe creates opportunities to apply dynamic pricing strategies, optimizing revenue further. See **FCB_Dynamic-Pricing** </br> [![Badge Text](https://img.shields.io/badge/Link_to_Repo-grey?style=flat&logo=github)](https://github.com/tomas-ravalli/fcb-dynamic-pricing) |
 | 🛡️ Fraud Reduction | **Mitigated Scalping** | By delaying the issuance of physical tickets until 48 hours before kick-off, the system combats fraud and unauthorized resale. |
 
 ## Overview

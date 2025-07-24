@@ -1,3 +1,5 @@
+![My Cover](./assets/cover.png)
+
 # 🏟️ FCB_SmartBooking
 
 <p align="left">

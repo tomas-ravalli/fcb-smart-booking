@@ -1,4 +1,4 @@
-![My Cover](./assets/cover.png)
+![My Cover](./assets/dp-cover.png)
 
 # 🏟️ FCB_SmartBooking
 

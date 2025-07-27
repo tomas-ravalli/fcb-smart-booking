@@ -1,10 +1,9 @@
 ![My Cover](./assets/dp-cover.png)
 
-# 🏟️ FCB_SmartBooking
+# 🏟️ SmartBooking Seats Engine
 
 <p align="left">
   <img src="https://img.shields.io/badge/License-MIT-lightgrey" alt="License">
-  <img src="https://img.shields.io/badge/Language-Python-lightgrey" alt="Language">
 </p>
 
 > A predictive analytics system that forecasts seat availability for football matches. **Objective:** To solve the massive supply-demand imbalance in ticket sales by using machine learning to predict seat availability, maximizing matchday revenue and improving the fan experience at the stadium.
@@ -34,14 +33,6 @@
 
 ## Overview
 
-The diagram below illustrates the conceptual framework for the SmartBooking project. The system addresses the core problem of information asymmetry in ticket availability. Season ticket holders often release their seats back to the club very late, creating a frustrating experience for fans who see matches as "Sold Out" when thousands of seats will eventually become available.
-
-<p align="center">
-  <img src="./assets/dp-hl.png" alt="High-level Project Diagram" width="2000">
-  <br>
-  <em>Fig. 1: A high-level diagram of the Dynamic Pricing Engine.</em>
-</p>
-
 The SmartBooking engine acts as a forecasting layer. It ingests historical sales data and contextual factors to predict, weeks in advance, how many seats will ultimately be freed up in each stadium zone. This forecast empowers the club to sell a calculated number of tickets *before* they are officially released, bridging the gap between fan demand and latent supply. This moves the club from a reactive sales model to a proactive, predictive one.
 
 | 🚩 The Problem | 💡 The Solution |
@@ -50,6 +41,14 @@ The SmartBooking engine acts as a forecasting layer. It ingests historical sales
 | **Lost Revenue**: High demand went unmet due to the delay in seat returns, leading to significant lost revenue for the club. | **Revenue Capture**: Unlocks millions in sales by matching early fan demand with predicted inventory. |
 | **Poor Fan Experience**: The unpredictable nature of ticket availability frustrated fans and fueled secondary resale markets. | **Guaranteed Experience**: Offers fans, especially families and groups, guaranteed paired seating, improving satisfaction and trust. |
 | **Seat Fragmentation**: Last-minute releases often resulted in many isolated single seats that were difficult to sell. | **Optimized Occupancy**: By selling seats early, the system facilitates better seat allocation, reducing empty singles and maximizing attendance. |
+
+The diagram below illustrates the conceptual framework for the SmartBooking project. The system addresses the core problem of information asymmetry in ticket availability. Season ticket holders often release their seats back to the club very late, creating a frustrating experience for fans who see matches as "Sold Out" when thousands of seats will eventually become available.
+
+<p align="center">
+  <img src="./assets/dp-hl.png" alt="High-level Project Diagram" width="2000">
+  <br>
+  <em>Fig. 1: A high-level diagram of the Dynamic Pricing Engine.</em>
+</p>
 
 
 ## Architecture

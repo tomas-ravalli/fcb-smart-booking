@@ -1,6 +1,6 @@
 ![My Cover](./assets/dp-cover.png)
 
-# 🏟️ SmartBooking Seats Engine
+# 🏟️ Predictive Seat Availability Engine for Sports Stadium
 
 <p align="left">
   <img src="https://img.shields.io/badge/License-MIT-lightgrey" alt="License">

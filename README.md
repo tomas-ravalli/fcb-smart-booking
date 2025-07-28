@@ -1,6 +1,6 @@
 ![My Cover](./assets/dp-cover.png)
 
-# 🏟️ Predictive Seat Availability Engine for Sports Stadium
+# 🏟️ A Seat Availability Forecasting Engine
 
 <p align="left">
   <img src="https://img.shields.io/badge/License-MIT-lightgrey" alt="License">

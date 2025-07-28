@@ -1,4 +1,4 @@
-![My Cover](./assets/dp-cover.png)
+![My Cover](./assets/sb-cover.jpg)
 
 # 🏟️ A Seat Availability Forecasting Engine
 

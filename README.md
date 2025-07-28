@@ -2,12 +2,12 @@
 
 # 🏟️ A Seat Availability Forecasting Engine
 
-> A predictive analytics system that forecasts seat availability for football matches. **Objective:** To solve the massive supply-demand imbalance in ticket sales by using machine learning to predict seat availability, maximizing matchday revenue and improving the fan experience at the stadium.
-
 <p align="left">
   <img src="https://img.shields.io/badge/License-MIT-lightgrey" alt="License">
   <img src="https://img.shields.io/badge/ML-Supervised-lightgrey" alt="License">
 </p>
+
+> A predictive analytics system that forecasts seat availability for football matches. **Objective:** To solve the massive supply-demand imbalance in ticket sales by using machine learning to predict seat availability, maximizing matchday revenue and improving the fan experience at the stadium.
 
 ### Outline
 

@@ -1,6 +1,6 @@
 ![My Cover](./assets/sb-cover.jpg)
 
-# 🏟️ A Seat Availability Forecasting Engine
+# 🏟️ Seat Availability Forecasting Engine
 
 <p align="left">
   <img src="https://img.shields.io/badge/License-MIT-lightgrey" alt="License">
@@ -247,6 +247,7 @@ FCB_Smart-Booking/
     └── models/                       # (Private) Scripts for model training and prediction.
         ├── train_availability_model.py
         └── predict_availability.py
+```
 
 </br>
 

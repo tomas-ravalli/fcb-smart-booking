@@ -159,7 +159,6 @@ The success of the SmartBooking system hinges on the accuracy of its core foreca
 
 | Source of Prediction | Accuracy |
 | :--- | :--- |
-| Random Guess | 15% |
 | Averages (Mean, Median, etc.) | 45% |
 | Domain Experts | 65% |
 | **Machine Learning Model** | **85%** |
@@ -172,35 +171,38 @@ The model's **85% accuracy** was deemed highly successful, providing a strong st
 
 ### Validation
 
-Before a full rollout, the system was rigorously validated through a controlled **A/B test** to scientifically measure its business impact. The experiment was designed to isolate the effect of selling tickets based on the forecast, separating it from all other variables.
+Validating the model's business impact required moving beyond simple accuracy metrics to rigorously measure its causal effect on revenue. The core question was: "**Does using this model's forecast cause an increase in revenue?**"
 
-The results from the A/B tests were overwhelmingly positive, showing a **+15% increase in total ticket sales revenue** for matches where the SmartBooking system was active. This confirmed that we were successfully capturing previously unmet demand without cannibalizing other sales, giving the business full confidence to deploy the system permanently.
+To answer this, we implemented a two-fold validation framework. This approach confirmed a **+15% increase in total ticket sales revenue**, directly attributable to the SmartBooking system.
 
 <details>
-<summary><b>Click to see the full experimental design</b></summary>
+<summary><b>Click to see the full validation framework</b></summary>
 
-#### Experimental Design
+#### 1. Deconstruct the System: The Validation Strategy
 
-The validation used a match-based A/B test, where different matches were assigned to treatment and control groups.
+The first step was to frame the problem correctly. A simple A/B test comparing different matches is invalid due to confounding variables (opponent quality, weather, etc.). Our strategy therefore combined offline and online validation.
 
-1.  **Treatment vs. Control Groups**: Matches were divided into two groups.
-    * **Treatment Group = SmartBooking Enabled**: For these matches, the club used the forecast to sell a calculated number of tickets in advance, before the seats were officially released by members.
-    * **Control Group = Standard Process**: For these matches, the club followed the traditional process, only selling tickets after they were officially returned by members.
+* **Offline Validation (Pre-Flight Check):** Before any real-world testing, we performed rigorous backtesting on historical data. This involved training the model on a period of data and evaluating its forecast accuracy on a hold-out set. We used SHAP values to interpret the model's predictions, ensuring it learned logical patterns and wasn't relying on spurious correlations. This validated the model's fundamental soundness.
 
-2.  **Hypothesis**: Our primary hypothesis was that the treatment group (SmartBooking matches) would generate significantly higher total ticket sales revenue compared to the control group, by capturing early demand.
+* **Online Validation (Causal Impact Measurement):** To measure the real-world impact, we implemented a quasi-experimental design using **Propensity Score Matching (PSM)**. This statistical technique allowed us to create a fair, "apples-to-apples" comparison group from historical data, effectively simulating a controlled experiment to isolate the model's causal effect on revenue.
 
-3.  **Duration**: The test was run across a full season, covering a diverse range of matches (league, cup, international) to ensure the results were robust and not specific to a certain type of event.
+#### 2. Quantify the Components: The Execution Plan
 
-#### Key metrics tracked
+This phase involved executing the PSM design to get a reliable measurement of the financial lift.
 
-To evaluate the experiment's outcome, we monitored several KPIs for both groups:
+* **Define Groups**: We established two groups for our analysis:
+    * **Treatment Group**: A set of recent matches where the Ticketing Manager used the SmartBooking forecast to release inventory.
+    * **Control Group**: A large pool of historical matches from seasons where the SmartBooking system did not exist.
 
-* **Primary metric**: Total Ticket Sales Revenue per Match.
-* **Secondary metrics**:
-    * Ticket Sell-Through Rate (occupancy).
-    * Average Order Value (to measure group/family sales).
-    * Percentage of Paired Seats Sold.
-    * Time of purchase (to confirm we were capturing *early* demand).
+* **Build the Propensity Model**: We built a supervised classification model to calculate a "propensity score" for every match in both groups. This score quantifies the character of each match based on its features (opponent tier, competition, day of the week, etc.), representing the probability of it receiving the "treatment."
+
+* **Match & Compare**: Using a nearest-neighbor matching algorithm, we found a "statistical twin" from the control group for each match in the treatment group. This twin was the historical match with the most similar propensity score, ensuring the comparison was fair.
+
+* **Define KPIs**: We measured the difference between the matched pairs across several metrics:
+    * **Primary KPI**: Total Ticket Revenue.
+    * **Secondary KPIs**: Final Attendance Rate, Average Order Value (AOV), and the sell-through rate of the predicted inventory.
+
+This rigorous process gave us high confidence that the measured uplift was due to the SmartBooking system and not external factors.
 
 </details>
 

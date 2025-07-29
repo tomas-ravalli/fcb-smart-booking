@@ -49,7 +49,7 @@ The SmartBooking engine was designed to bridge this gap. It acts as a forecastin
 The diagram below illustrates the supply-demand gap the system was built to solve. The engine forecasts the final supply (the peak of the blue curve) and makes that inventory available to meet the high early demand (the red line).
 
 <p align="center">
-  <img src="https://.png" alt="High-level Project Diagram" width="2000">
+  <img src="https://sb-ss.png" alt="Supply-demand gap" width="850">
   <br>
   <em>Fig. 1: The supply-demand gap between early fan demand and late seat releases.</em>
 </p>

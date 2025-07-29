@@ -1,6 +1,6 @@
 ![My Cover](./assets/sb-cover.jpg)
 
-# 🏟️ Seat Availability Forecasting Engine
+# 🏟️ Seat Availability Engine with HiLP
 
 <p align="left">
   <img src="https://img.shields.io/badge/License-MIT-lightgrey" alt="License">

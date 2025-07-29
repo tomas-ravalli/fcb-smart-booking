@@ -1,13 +1,13 @@
 ![My Cover](./assets/sb-cover.jpg)
 
-# 🏟️ Seat Availability Engine with Human-in-the-loop
+# 🏟️ Seat Availability Forecasting Engine
 
 <p align="left">
   <img src="https://img.shields.io/badge/License-MIT-lightgrey" alt="License">
   <img src="https://img.shields.io/badge/ML-Supervised_Regression-lightgrey" alt="ML Task">
 </p>
 
-> An ML system that forecasts stadium seat availability for football matches. [cite_start]**Objective:** To solve the supply-demand imbalance in ticket sales by using machine learning to predict seat availability, maximizing matchday revenue and improving the fan experience at the stadium. [cite: 10]
+> An ML system that forecasts stadium seat availability for football matches. **Objective:** To solve the supply-demand imbalance in ticket sales by using machine learning to predict seat availability, maximizing matchday revenue and improving the fan experience at the stadium.
 
 ### Outline
 
@@ -22,34 +22,34 @@
 
 ## Key Results
 
-| Metric                      | Result                          | Description |
+| Metric | Result | Description |
 | :-------------------------- | :------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------- |
-| 📈 Revenue Growth           | **+15%** in Ticket Sales        | Enabled by confidently selling tickets predicted to become available, capturing previously lost demand. [cite_start]Confirmed via A/B testing. [cite: 1093, 1097]         |
-| 💰 Average Order Value      | **+40%** Increase               | [cite_start]A direct result of guaranteeing paired seating for families and groups, which encourages larger transactions and improves the fan experience. [cite: 1093, 1097] |
-| 🎯 Forecast Accuracy        | **85%** Accuracy          | [cite_start]The ML model's predictions significantly outperformed internal domain experts (65% accuracy) and simple averages (45%). [cite: 1052] |
-| ⭐ Fan Experience           | Paired Seating Guaranteed | Transformed the fan purchase journey. [cite_start]Users buy for a zone, not a specific seat, and are guaranteed paired seats assigned 24-48 hours before the match. [cite: 629, 632] |
-| 📢 Marketing Efficiency     | Improved ROAS **14%** | [cite_start]A wider time window to market the match allows for more effective campaign planning, better segmentation, and improved Return on Ad Spend. [cite: 722, 724] |
-| 🛡️ Fraud Reduction         | Mitigated Scalping | [cite_start]By delaying the issuance of final tickets until just before kick-off, the system combats fraud and gives a competitive advantage over secondary markets. [cite: 461, 624] |
+| 📈 Revenue Growth | **+15%** in Ticket Sales | Enabled by confidently selling tickets predicted to become available, capturing previously lost demand. Confirmed via A/B testing. |
+| 💰 Average Order Value | **+40%** Increase | A direct result of guaranteeing paired seating for families and groups, which encourages larger transactions and improves the fan experience. |
+| 🎯 Forecast Accuracy | **85%** Accuracy | The ML model's predictions significantly outperformed internal domain experts (65% accuracy) and simple averages (45%). |
+| ⭐ Fan Experience | Paired Seating Guaranteed | Transformed the fan purchase journey. Users buy for a zone, not a specific seat, and are guaranteed paired seats assigned 24-48 hours before the match. |
+| 📢 Marketing Efficiency | Improved ROAS **14%** | A wider time window to market the match allows for more effective campaign planning, better segmentation, and improved Return on Ad Spend. |
+| 🛡️ Fraud Reduction | Mitigated Scalping | By delaying the issuance of final tickets until just before kick-off, the system combats fraud and gives a competitive advantage over secondary markets. |
 
 ## Overview
 
-The core business problem originates with the club's membership model. [cite_start]Approximately 85% of the stadium's 99,000+ seats are allocated to season ticket holders ("members"). [cite: 293, 298] [cite_start]This leaves only about 9,500 seats available for general sale from day one. [cite: 282] [cite_start]Members who cannot attend a match can release their seat back to the club for resale via the `Seient Lliure` ("Free Seat") program. [cite: 301]
+The core business problem originates with the club's membership model. Approximately 85% of the stadium's 99,000+ seats are allocated to season ticket holders ("members"). This leaves only about 9,500 seats available for general sale from day one. Members who cannot attend a match can release their seat back to the club for resale via the `Seient Lliure` ("Free Seat") program.
 
-[cite_start]However, member behavior creates a massive supply-demand gap: **on average, 40% of seats are freed up within the last 72 hours of a match**[cite: 457], while fan demand is highest weeks in advance. [cite_start]This mismatch leads to lost revenue, a poor fan experience with "sold-out" messages, and fragmented single seats that are hard to sell. [cite: 229, 459]
+However, member behavior creates a massive supply-demand gap: **on average, 40% of seats are freed up within the last 72 hours of a match**, while fan demand is highest weeks in advance. This mismatch leads to lost revenue, a poor fan experience with "sold-out" messages, and fragmented single seats that are hard to sell.
 
-The SmartBooking engine was designed to bridge this gap. It acts as a forecasting layer, using machine learning to predict how many seats will ultimately be freed up by members in each stadium zone. This forecast empowers the club to confidently sell a calculated number of tickets *before* they are officially released, moving from a reactive sales model to a proactive, predictive one.
+The SmartBooking engine was designed to bridge this gap. It acts as a forecasting layer, using machine learning to generate a **recommendation** on how many seats will become available. A **Ticketing Manager** then reviews this forecast, applies business logic and safety margins, and makes the final decision on how much inventory to push to the live ticketing system. This "human-in-the-loop" approach combines predictive power with expert oversight.
 
 | 🚩 The Problem | 💡 The Solution |
 | :--------------------------- | :---------------------------- |
-| [cite_start]**"Sold Out" Illusion**: Fans faced "Sold Out" messages, unaware that thousands of seats appear in the last 72 hours. [cite: 457, 462] | [cite_start]**Advance Availability**: Predicts final seat count weeks in advance, allowing the club to sell tickets for seats that are not yet officially released. [cite: 604, 612] |
-| [cite_start]**Lost Revenue**: High, early demand went unmet due to the delay in seat returns, leading to significant lost revenue for the club. [cite: 229, 292] | [cite_start]**Revenue Capture**: Unlocks millions in sales by matching early fan demand with predicted inventory. [cite: 1097] |
-| [cite_start]**Poor Fan Experience**: The unpredictable nature of ticket availability frustrated fans and fueled secondary resale markets. [cite: 294, 461] | [cite_start]**Guaranteed Experience**: Offers fans, especially families and groups, guaranteed paired seating, improving satisfaction and trust. [cite: 629, 635] |
-| **Seat Fragmentation**: Last-minute releases often resulted in many isolated single seats that were difficult to sell. | [cite_start]**Optimized Occupancy**: By selling seats early and guaranteeing pairs, the system reduces empty singles and maximizes attendance. [cite: 1098] |
+| **"Sold Out" Illusion**: Fans faced "Sold Out" messages, unaware that thousands of seats appear in the last 72 hours. | **Advance Availability**: Predicts final seat count weeks in advance, allowing the club to sell tickets for seats that are not yet officially released. |
+| **Lost Revenue**: High, early demand went unmet due to the delay in seat returns, leading to significant lost revenue for the club. | **Revenue Capture**: Unlocks millions in sales by matching early fan demand with manager-approved predicted inventory. |
+| **Poor Fan Experience**: The unpredictable nature of ticket availability frustrated fans and fueled secondary resale markets. | **Guaranteed Experience**: Offers fans, especially families and groups, guaranteed paired seating, improving satisfaction and trust. |
+| **Seat Fragmentation**: Last-minute releases often resulted in many isolated single seats that were difficult to sell. | **Optimized Occupancy**: By selling seats early and guaranteeing pairs, the system reduces empty singles and maximizes attendance. |
 
 The diagram below illustrates the supply-demand gap the system was built to solve. The engine forecasts the final supply (the peak of the blue curve) and makes that inventory available to meet the high early demand (the red line).
 
 <p align="center">
-  <img src="https://i.imgur.com/G5g2mGz.png" alt="High-level Project Diagram" width="2000">
+  <img src="https://.png" alt="High-level Project Diagram" width="2000">
   <br>
   <em>Fig. 1: The supply-demand gap between early fan demand and late seat releases.</em>
 </p>
@@ -59,8 +59,8 @@ The diagram below illustrates the supply-demand gap the system was built to solv
 
 The general workflow is as follows:
 1.  **Data Sources** are ingested, focusing on historical `Seient Lliure` patterns and contextual match data.
-2.  The **Forecasting Engine** uses a machine learning model to predict the final number of available seats per zone.
-3.  This forecast is sent to the **Ticketing System**, which opens a corresponding number of seats for advance sale, allowing fans to purchase tickets earlier.
+2.  The **Forecasting Engine** generates a seat availability forecast that is delivered as a recommendation to the Ticketing Manager.
+3.  The **Ticketing Manager** reviews the forecast, applies a safety buffer, and pushes the final, approved inventory to the **Ticketing System**.
 
 <p align="center">
   <img src="./assets/sb-ll.png" alt="Low-level Project Diagram" width="950">
@@ -75,29 +75,26 @@ The general workflow is as follows:
 
 | Component | Description |
 | :--- | :--- |
-| **`Seient Lliure` Data** | [cite_start]Historical data on seat release behavior, including timing and frequency, for different member segments and stadium zones. [cite: 905] |
-| **Match & Competition Data** | [cite_start]Foundational information about each match: opponent, date/time, competition type, and matchday number. [cite: 867, 868] |
-| **Historical Sales Data** | [cite_start]Time-series data tracking ticket prices and sales velocity for past matches. [cite: 870, 910] |
-| **Contextual Demand Signals** | [cite_start]External factors that affect attendance decisions: holidays, weather forecasts, team momentum (league position, recent results), and player status (injuries, records). [cite: 873, 874, 869] |
+| **`Seient Lliure` Data** | Historical data on seat release behavior, including timing and frequency, for different member segments and stadium zones. |
+| **Match & Competition Data** | Foundational information about each match: opponent, date/time, competition type, and matchday number. |
+| **Historical Sales Data** | Time-series data tracking ticket prices and sales velocity for past matches. |
+| **Contextual Demand Signals**| External factors that affect attendance decisions: holidays, weather forecasts, team momentum (league position, recent results), and player status. |
 
-### Forecasting Engine
+### Forecasting & Approval
 
 | Component | Description |
 | :--- | :--- |
-| **Data Ingestion & Centralization** | [cite_start]Gathers data from all sources into a unified data model for processing and feature engineering. [cite: 755, 756] |
-| **ML Core & Feature Engineering** | [cite_start]The central "brain" where features are created and the machine learning models are trained and executed to generate forecasts. [cite: 763] |
-| **Availability Forecast Model** | [cite_start]The core regression model that predicts the final count of seats that will be released by members for a given match. [cite: 984] |
-| **Model Explainability** | [cite_start]Uses techniques like SHAP to interpret model predictions and understand the key drivers for each forecast. [cite: 993, 1013] |
-| **Forecast Output** | The final prediction from the engine: a specific number of seats per zone that are expected to become available. |
+| **ML Core & Feature Engineering**| The central "brain" where features are created and the ML models are trained to generate forecasts. |
+| **Availability Forecast Model** | The core regression model that predicts the final count of seats that will be released by members for a given match. |
+| **Manager Review** | A crucial "human-in-the-loop" step where a Ticketing Manager reviews the forecast recommendation. |
+| **Business Rules & Safety Buffer**| The manager applies expert knowledge and a safety margin (e.g., approve 95% of the forecast) to mitigate risk before pushing inventory live. |
 
 ### Integration & Sales
 
 | Component | Description |
 | :--- | :--- |
-| **Business Rules Module** | Applies a safety buffer to the forecast (e.g., release 95% of predicted seats) to manage the risk of over-selling. |
-| **REST API** | [cite_start]The communication layer that sends the final, adjusted seat count to the live ticketing system. [cite: 788] |
-| **Ticketing Purchase System** | The club's main backend system that receives the seat count and updates inventory, making them available for public sale. |
-| **Ticketing Purchase UI** | [cite_start]The public-facing website where fans can now see and purchase the newly available seats well in advance of the match. [cite: 622] |
+| **Ticketing Purchase System**| The club's main backend system that receives the manager-approved seat count and updates inventory. |
+| **Ticketing Purchase UI** | The public-facing website where fans can now see and purchase the newly available seats well in advance of the match. |
 
 </details>
 
@@ -113,20 +110,20 @@ By combining historical data with external factors like match importance and wea
 
 </br>
 
-[cite_start]The model uses a wide range of features, categorized to ensure a holistic view of supply and demand drivers. [cite: 866]
+The model uses a wide range of features, categorized to ensure a holistic view of supply and demand drivers.
 
 | Category | Features | Description |
 | :--- | :--- | :--- |
-| **Match** | Day/Month/Time, Competition, Days-to-match, # Matchday | [cite_start]Core temporal and event-specific details. [cite: 867] |
-| **Rival** | Position, Points/Goals difference, FIFA ranking, # Trophies, Derby/Clásico | [cite_start]Quantifies the opponent's quality and the match's importance. [cite: 868] |
-| **Barça Momentum** | Barça Position, Last result, Goals +/-, Top player injured | [cite_start]Captures the team's current form and fan excitement. [cite: 869] |
-| **Sales and Stock** | Sales historical data, Free-up seats historical data, Ticket prices | [cite_start]Historical supply, demand, and pricing information. [cite: 870] |
-| **Members and Zones**| Max/Avg free-up per zone, Type of member, Zone, `Seient Lliure` incentives | [cite_start]Member-specific behavior and zone-level characteristics. [cite: 871] |
-| **Web** | Navigational data, User segmentation, Visits to checkout | [cite_start]Digital analytics signals indicating purchase intent. [cite: 872] |
-| **Weather** | Storm, Rain, Wind | [cite_start]Weather forecasts that can influence a local member's decision to attend. [cite: 873] |
-| **External Factors**| Holidays, Day before holiday, Political disturbances, New player(s) | [cite_start]Macro-level factors that can impact attendance. [cite: 874] |
+| **Match** | Day/Month/Time, Competition, Days-to-match, # Matchday | Core temporal and event-specific details. |
+| **Rival** | Position, Points/Goals difference, FIFA ranking, # Trophies, Derby/Clásico | Quantifies the opponent's quality and the match's importance. |
+| **Barça Momentum**| Barça Position, Last result, Goals +/-, Top player injured | Captures the team's current form and fan excitement. |
+| **Sales and Stock** | Sales historical data, Free-up seats historical data, Ticket prices | Historical supply, demand, and pricing information. |
+| **Members and Zones**| Max/Avg free-up per zone, Type of member, Zone, `Seient Lliure` incentives | Member-specific behavior and zone-level characteristics. |
+| **Web** | Navigational data, User segmentation, Visits to checkout | Digital analytics signals indicating purchase intent. |
+| **Weather** | Storm, Rain, Wind | Weather forecasts that can influence a local member's decision to attend. |
+| **External Factors**| Holidays, Day before holiday, Political disturbances, New player(s) | Macro-level factors that can impact attendance. |
 
-- **`final_released_seats`** (*Integer*): **(Target Variable)** The final, total number of seats that were released by season ticket holders in that zone for that match. This is the value the model aims to predict.
+- **`final_released_seats`** (Integer): **(Target Variable)** The final, total number of seats that were released by season ticket holders in that zone for that match. This is the value the model aims to predict.
 
 </details>
 
@@ -138,7 +135,7 @@ This systemic approach ensures that the relationships between the features in th
 
 ## Modeling
 
-The modeling approach is designed to accurately solve a single, critical business problem: predicting the final number of seats that will become available from season ticket holders. [cite_start]This is a classic supervised regression problem. [cite: 956] By deconstructing the problem into its key drivers, we can build a model that reliably forecasts this supply.
+The modeling approach is designed to accurately solve a single, critical business problem: predicting the final number of seats that will become available from season ticket holders. This is a classic supervised regression problem. By deconstructing the problem into its key drivers, we can build a model that reliably forecasts this supply.
 
 This approach creates a predictive asset that the business can use to make proactive decisions, turning a forecasting model into a direct revenue-generating tool.
 
@@ -149,9 +146,9 @@ This approach creates a predictive asset that the business can use to make proac
 | Aspect | Description |
 | :--- | :--- |
 | **Model** | An **`XGBoost` Regressor**. |
-| **Rationale** | [cite_start]After exploring several algorithms (including Decision Trees and Neural Networks), XGBoost was chosen for its high performance, speed, and its ability to handle complex, non-linear relationships. [cite: 771, 772] It effectively models how factors like opponent strength, day of the week, and team performance interact to influence a member's decision to release their seat. |
-| **Features** | [cite_start]The model uses a rich set of features including match context (`opponent_tier`), temporal factors (`days_until_match`), team performance (`team_position`), and external factors (`holidays`) to build a comprehensive view of the drivers behind seat availability. [cite: 866] |
-| **Application** | The trained model's forecast is used to determine the number of tickets that can be safely sold in advance. A business rule applies a confidence buffer (e.g., 95%) to the prediction to mitigate the risk of over-selling. |
+| **Rationale** | After exploring several algorithms (including Decision Trees and Neural Networks), XGBoost was chosen for its high performance, speed, and its ability to handle complex, non-linear relationships. It effectively models how factors like opponent strength, day of the week, and team performance interact to influence a member's decision to release their seat. |
+| **Features** | The model uses a rich set of features including match context (`opponent_tier`), temporal factors (`days_until_match`), team performance (`team_position`), and external factors (`holidays`) to build a comprehensive view of the drivers behind seat availability. |
+| **Application** | The model's forecast is delivered as a **recommendation** to the Ticketing Manager. A safety buffer (e.g., 95% of the forecast) is manually applied by the manager to mitigate risk before the final inventory is pushed live. |
 | **Design Choice** | While time-series models could model release patterns over time, a gradient boosting model like `XGBoost` is better suited to predict a single, final outcome (total released seats) based on a wide array of static features for a given match. It excels at capturing the combined impact of all variables at once. |
 
 <details>
@@ -167,9 +164,9 @@ The success of the SmartBooking system hinges on the accuracy of its core foreca
 | Domain Experts | 65% |
 | **Machine Learning Model** | **85%** |
 
-[cite_start]*Table: Comparison of prediction accuracy across different methods.* [cite: 1052]
+*Table: Comparison of prediction accuracy across different methods.*
 
-The model's **85% accuracy** was deemed highly successful, providing a strong statistical foundation for the business to act on the forecasts with confidence. [cite_start]The model was also interpreted using **SHAP values** to ensure the relationships it learned were logical and explainable to stakeholders. [cite: 993]
+The model's **85% accuracy** was deemed highly successful, providing a strong statistical foundation for the business to act on the forecasts with confidence. The model was also interpreted using **SHAP values** to ensure the relationships it learned were logical and explainable to stakeholders.
 
 </details>
 
@@ -177,7 +174,7 @@ The model's **85% accuracy** was deemed highly successful, providing a strong st
 
 Before a full rollout, the system was rigorously validated through a controlled **A/B test** to scientifically measure its business impact. The experiment was designed to isolate the effect of selling tickets based on the forecast, separating it from all other variables.
 
-[cite_start]The results from the A/B tests were overwhelmingly positive, showing a **+15% increase in total ticket sales revenue** for matches where the SmartBooking system was active. [cite: 1097] This confirmed that we were successfully capturing previously unmet demand without cannibalizing other sales, giving the business full confidence to deploy the system permanently.
+The results from the A/B tests were overwhelmingly positive, showing a **+15% increase in total ticket sales revenue** for matches where the SmartBooking system was active. This confirmed that we were successfully capturing previously unmet demand without cannibalizing other sales, giving the business full confidence to deploy the system permanently.
 
 <details>
 <summary><b>Click to see the full experimental design</b></summary>
@@ -227,7 +224,7 @@ FCB_Smart-Booking/
 │       └── synthetic_match_data.csv    # (Public) The generated synthetic dataset.
 ├── models/                         # (Private) Stores trained model artifacts.
 │   └── availability_forecast_model.joblib
-├── notebooks/                      # (Private) Jupyter notebooks for analysis.
+├── notebooks/      _**_              # (Private) Jupyter notebooks for analysis.
 │   └── eda.ipynb
 └── src/
     ├── __init__.py                 # (Private) Makes src a Python package.

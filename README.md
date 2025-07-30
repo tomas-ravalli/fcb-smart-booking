@@ -64,7 +64,7 @@ The general workflow is as follows:
 3.  The **Ticketing Manager** reviews the forecast, applies a safety buffer, and pushes the final, approved inventory to the **Ticketing System**.
 
 <p align="center">
-  <img src="./assets/sb-scd.png" alt="System context diagram" width="950">
+  <img src="./assets/sb-scd.png" alt="System context diagram" width="850">
     <br>
   <em>Fig. 2: [System Context Diagram] Seat Availability Engine.</em>
 </p>

@@ -41,7 +41,7 @@ The core business problem originates with the club's membership model. Approxima
 However, member behavior creates a massive supply-demand gap: **on average, 40% of seats are freed up within the last 72 hours of a match**, while fan demand is already high weeks in advance. This mismatch leads to lost revenue, a poor fan experience with "not-available" messages, and fragmented single seats that are hard to sell. The diagram below illustrates the supply-demand gap the system was built to solve.
 
 <p align="center">
-  <img src="./assets/sb-ss.png" alt="Supply-demand gap" width="1500">
+  <img src="./assets/sb-sdg.png" alt="Supply-demand gap" width="1500">
   <br>
   <em>Fig. 1: The supply-demand gap between early fan demand and late seat releases.</em>
 </p>

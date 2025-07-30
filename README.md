@@ -30,13 +30,13 @@
 | 🍔 In-Stadium Spend         | **+8%** Increase            | A second-order effect of higher attendance. More fans in the stadium naturally leads to increased sales of food & beverage, and merchandise.  |
 | ⭐ Fan Experience           | Paired Seating Guaranteed | Transformed the fan purchase journey from a lottery to a reliable process, drastically reducing empty single seats and improving atmosphere. |
 | 📢 Marketing Efficiency     | Improved ROAS **14%** | A wider time window to market the match allows for more effective campaign planning and better Return on Ad Spend.                  |
-| 🛡️ Fraud Reduction          | Mitigated scalping | By delaying the issuance of physical tickets until 48 hours before kick-off, the system combats fraud and unauthorized resale.             |
+| 🛡️ Fraud Reduction          | Mitigated scalping | By delaying the dispatching of physical tickets until 48 hours before kick-off, the system combats fraud and unauthorized resale.             |
 | 🎯 Forecast Accuracy        | **85%** (R²)           | The model's predictions of final seat availability were highly accurate, providing a reliable basis for advance sales.                       |
 
 
 ## Overview
 
-The core business problem originates with the club's membership model. Approximately 85% of the stadium's 100,000 seats are allocated to season ticket holders (club members). This and other factors leaves only about 9,500 seats available for general sale from day one. Members who cannot attend a match can release their seat back to the Club for resale via the Club's official Members App.
+The core business problem originates with the club's membership model. Approximately 85% of the stadium's 100,000 seats are allocated to season ticket holders (club members). This and other factors leaves only about 9,500 seats available for general sale from day one. Members who cannot attend a match can release their seat back to the Club for resale via the official `Club Members App`.
 
 However, member behavior creates a massive supply-demand gap: **on average, 40% of seats are freed up within the last 72 hours of a match**, while fan demand is already high weeks in advance. This mismatch leads to lost revenue, a poor fan experience with "not-available" messages, and fragmented single seats that are hard to sell. The diagram below illustrates the supply-demand gap the system was built to solve.
 
@@ -59,7 +59,7 @@ The **Seats Availability Engine** (AKA SmartBooking) was designed to bridge this
 ## Architecture
 
 The general workflow is as follows:
-1.  **Data Sources** are ingested, focusing on historical `Seient Lliure` patterns and contextual match data.
+1.  **Data Sources** are ingested, focusing on historical `Club Members App` patterns and contextual match data.
 2.  The **Forecasting Engine** generates a seat availability forecast that is delivered as a recommendation to the Ticketing Manager.
 3.  The **Ticketing Manager** reviews the forecast, applies a safety buffer, and pushes the final, approved inventory to the **Ticketing System**.
 
@@ -68,36 +68,6 @@ The general workflow is as follows:
     <br>
   <em>Fig. 2: [System Context Diagram] Seat Availability Engine.</em>
 </p>
-
-<details>
-<summary><b>Click to see the detailed architecture breakdown</b></summary>
-
-### Data Sources
-
-| Component | Description |
-| :--- | :--- |
-| **`Seient Lliure` Data** | Historical data on seat release behavior, including timing and frequency, for different member segments and stadium zones. |
-| **Match & Competition Data** | Foundational information about each match: opponent, date/time, competition type, and matchday number. |
-| **Historical Sales Data** | Time-series data tracking ticket prices and sales velocity for past matches. |
-| **Contextual Demand Signals**| External factors that affect attendance decisions: holidays, weather forecasts, team momentum (league position, recent results), and player status. |
-
-### Forecasting & Approval
-
-| Component | Description |
-| :--- | :--- |
-| **ML Core & Feature Engineering**| The central "brain" where features are created and the ML models are trained to generate forecasts. |
-| **Availability Forecast Model** | The core regression model that predicts the final count of seats that will be released by members for a given match. |
-| **Manager Review** | A crucial "human-in-the-loop" step where a Ticketing Manager reviews the forecast recommendation. |
-| **Business Rules & Safety Buffer**| The manager applies expert knowledge and a safety margin (e.g., approve 95% of the forecast) to mitigate risk before pushing inventory live. |
-
-### Integration & Sales
-
-| Component | Description |
-| :--- | :--- |
-| **Ticketing Purchase System**| The club's main backend system that receives the manager-approved seat count and updates inventory. |
-| **Ticketing Purchase UI** | The public-facing website where fans can now see and purchase the newly available seats well in advance of the match. |
-
-</details>
 
 
 ## Dataset
@@ -142,7 +112,7 @@ This approach creates a predictive asset that the business can use to make proac
 
 ### 📈 Availability Forecasting
 
-> This stage answers the business question: *"For a given match, how many season ticket seats will ultimately be returned to the club?"*
+This stage answers the business question: *"For a given match, how many season ticket seats will ultimately be returned to the club?"*
 
 | Aspect | Description |
 | :--- | :--- |
@@ -214,28 +184,26 @@ While most of the source code for this project is private, this section outlines
 
 ```bash
 FCB_Smart-Booking/
-├── .gitignore                      # (Public) Specifies files for Git to ignore.
-├── LICENSE                         # (Public) Project license.
-├── README.md                       # (Public) This project overview.
-├── requirements.txt                # (Private) The requirements file for the full project.
-├── config.py                       # (Private) Configuration file for paths and parameters.
-├── assets/                         # (Public) Diagrams and images for documentation.
-│   ├── sb-cover.jpg
-│   └── sb-ll.png
+├── .gitignore                              # (Public) Specifies files for Git to ignore.
+├── LICENSE                                 # (Public) Project license.
+├── README.md                               # (Public) This project overview.
+├── requirements.txt                        # (Private) The requirements file for the full project.
+├── config.py                               # (Private) Configuration file for paths and parameters.
+├── assets/                                 # (Public) Diagrams and images for documentation.
 ├── data/
 │   └── 03_synthetic/
-│       └── synthetic_match_data.csv    # (Public) The generated synthetic dataset.
-├── models/                         # (Private) Stores trained model artifacts.
+│       └── synthetic_match_data.csv        # (Public) The generated synthetic dataset.
+├── models/                                 # (Private) Stores trained model artifacts.
 │   └── availability_forecast_model.joblib
-├── notebooks/      _**_              # (Private) Jupyter notebooks for analysis.
+├── notebooks/                              # (Private) Jupyter notebooks for analysis.
 │   └── eda.ipynb
 └── src/
-    ├── __init__.py                 # (Private) Makes src a Python package.
+    ├── __init__.py                         # (Private) Makes src a Python package.
     ├── data/
-    │   └── make_dataset.py           # (Public) The script to generate the synthetic data.
-    ├── features/                     # (Private) Scripts for feature engineering.
+    │   └── make_dataset.py                 # (Public) The script to generate the synthetic data.
+    ├── features/                           # (Private) Scripts for feature engineering.
     │   └── build_features.py
-    └── models/                       # (Private) Scripts for model training and prediction.
+    └── models/                             # (Private) Scripts for model training and prediction.
         ├── train_availability_model.py
         └── predict_availability.py
 ```

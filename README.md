@@ -24,38 +24,36 @@
 
 | Metric                      | Result                          | Description |
 | :-------------------------- | :------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------- |
-| 📈 Revenue Growth             | **+15%** Increase       | Enabled by confidently selling tickets (+5%) predicted to become available, capturing previously lost demand, combined with a higher AOV and ATV.        |
-| 💰 Average Order Value      | **+20%** Increase               | A direct result of guaranteeing paired seating for families and groups, which encourages larger transactions.                                |
-| 🎟️ Average Ticket Value     | **+10%** Increase               | Forecasting supply far in advance, enabled a more aggressive dynamic pricing strategy. </br> [![Badge Text](https://img.shields.io/badge/Link_to_Repo-grey?style=flat&logo=github)](https://github.com/tomas-ravalli/fcb-dynamic-pricing) |
-| 🎯 Forecast Accuracy        | **85%** (R²)           | The model's predictions of final seat availability were highly accurate, providing a reliable basis for advance sales.                       |
+| 📈 Revenue Growth             | **+15%** Increase       | By forecasting future inventory, the system opened sales early to meet high fan demand, capturing revenue previously lost to "not available" messages. |
+| 💰 Average Order Value      | **+20%** Increase               | Guaranteed paired and group seating, made possible by granular forecasts, encouraged larger transactions from families and groups.|
+| 🎟️ Average Ticket Value     | **+10%** Increase               | Prices were set based on true forecasted supply instead of limited daily inventory, maximizing revenue per seat powered by a `dynamic pricing engine`. </br> [![Badge Text](https://img.shields.io/badge/Link_to_Repo-grey?style=flat&logo=github)](https://github.com/tomas-ravalli/fcb-dynamic-pricing) |
+| 🍔 In-Stadium Spend         | **+8%** Increase            | A second-order effect of higher attendance. More fans in the stadium naturally leads to increased sales of food & beverage, and merchandise.  |
 | ⭐ Fan Experience           | Paired Seating Guaranteed | Transformed the fan purchase journey from a lottery to a reliable process, drastically reducing empty single seats and improving atmosphere. |
 | 📢 Marketing Efficiency     | Improved ROAS **14%** | A wider time window to market the match allows for more effective campaign planning and better Return on Ad Spend.                  |
 | 🛡️ Fraud Reduction          | Mitigated scalping | By delaying the issuance of physical tickets until 48 hours before kick-off, the system combats fraud and unauthorized resale.             |
+| 🎯 Forecast Accuracy        | **85%** (R²)           | The model's predictions of final seat availability were highly accurate, providing a reliable basis for advance sales.                       |
 
-The model predicts which seats will become available long before the members officially release them. This allows the club to open sales for this "future" inventory immediately, directly meeting the high early demand from fans who would have otherwise seen a "sold out" message. More availability when demand is highest naturally leads to more tickets being sold. Also, with the model, the dynamic pricing engine knows the true expected final supply. It can set prices based on the actual supply-demand curve for the entire match, not just the few seats available today. This allows for more aggressive pricing early on and avoids last-minute price drops to sell off fragmented inventory. Lastly, By forecasting availability at a granular (zonal) level, the system can confidently guarantee paired and group seating weeks in advance. This capability is highly valuable to families and groups, encouraging them to buy more tickets in a single transaction, a behavior that was previously difficult or impossible.
 
 ## Overview
 
-The core business problem originates with the club's membership model. Approximately 85% of the stadium's 99,000+ seats are allocated to season ticket holders ("members"). This leaves only about 9,500 seats available for general sale from day one. Members who cannot attend a match can release their seat back to the club for resale via the `Seient Lliure` ("Free Seat") program.
+The core business problem originates with the club's membership model. Approximately 85% of the stadium's 100,000 seats are allocated to season ticket holders (club members). This and other factors leaves only about 9,500 seats available for general sale from day one. Members who cannot attend a match can release their seat back to the Club for resale via the Club's official Members App.
 
-However, member behavior creates a massive supply-demand gap: **on average, 40% of seats are freed up within the last 72 hours of a match**, while fan demand is highest weeks in advance. This mismatch leads to lost revenue, a poor fan experience with "sold-out" messages, and fragmented single seats that are hard to sell.
-
-The SmartBooking engine was designed to bridge this gap. It acts as a forecasting layer, using machine learning to generate a **recommendation** on how many seats will become available. A **Ticketing Manager** then reviews this forecast, applies business logic and safety margins, and makes the final decision on how much inventory to push to the live ticketing system. This "human-in-the-loop" approach combines predictive power with expert oversight.
-
-| 🚩 The Problem | 💡 The Solution |
-| :--------------------------- | :---------------------------- |
-| **"Sold Out" Illusion**: Fans faced "Sold Out" messages, unaware that thousands of seats appear in the last 72 hours. | **Advance Availability**: Predicts final seat count weeks in advance, allowing the club to sell tickets for seats that are not yet officially released. |
-| **Lost Revenue**: High, early demand went unmet due to the delay in seat returns, leading to significant lost revenue for the club. | **Revenue Capture**: Unlocks millions in sales by matching early fan demand with manager-approved predicted inventory. |
-| **Poor Fan Experience**: The unpredictable nature of ticket availability frustrated fans and fueled secondary resale markets. | **Guaranteed Experience**: Offers fans, especially families and groups, guaranteed paired seating, improving satisfaction and trust. |
-| **Seat Fragmentation**: Last-minute releases often resulted in many isolated single seats that were difficult to sell. | **Optimized Occupancy**: By selling seats early and guaranteeing pairs, the system reduces empty singles and maximizes attendance. |
-
-The diagram below illustrates the supply-demand gap the system was built to solve. The engine forecasts the final supply (the peak of the blue curve) and makes that inventory available to meet the high early demand (the red line).
+However, member behavior creates a massive supply-demand gap: **on average, 40% of seats are freed up within the last 72 hours of a match**, while fan demand is already high weeks in advance. This mismatch leads to lost revenue, a poor fan experience with "not-available" messages, and fragmented single seats that are hard to sell. The diagram below illustrates the supply-demand gap the system was built to solve.
 
 <p align="center">
   <img src="./assets/sb-ss.png" alt="Supply-demand gap" width="1500">
   <br>
   <em>Fig. 1: The supply-demand gap between early fan demand and late seat releases.</em>
 </p>
+
+The **Seats Availability Engine** (AKA SmartBooking) was designed to bridge this gap. It acts as a forecasting layer, using machine learning to predict how many seats will become available per stadium zone. A **Ticketing Manager** then reviews this forecast, applies business logic and safety margins, and makes the final decision on how much inventory to push to the live ticketing system. This "human-in-the-loop" approach combines predictive power with expert oversight.
+
+| 🚩 The Problem | 💡 The Solution |
+| :--------------------------- | :---------------------------- |
+| **"Not available" illusion**: Fans faced "not available" messages, unaware that thousands of seats appear in the last 72 hours. | **Advance availability**: Predicts final seat count weeks in advance, allowing the club to sell tickets for seats that are not yet officially released. |
+| **Lost revenue**: High, early demand went unmet due to the delay in seat releases, leading to significant lost revenue for the club. | **Revenue capture**: Unlocks millions in sales by matching early fan demand with manager-approved predicted inventory. |
+| **Poor fan experience**: The unpredictable nature of ticket availability frustrated fans and fueled secondary resale markets. | **Guaranteed experience**: Offers fans, especially families and groups, guaranteed paired seating, improving satisfaction and trust. |
+| **Seat fragmentation**: Last-minute releases often resulted in many isolated single seats that were difficult to sell. | **Optimized occupancy**: By selling seats early and guaranteeing pairs, the system reduces empty singles and maximizes attendance. |
 
 
 ## Architecture

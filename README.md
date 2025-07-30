@@ -1,6 +1,6 @@
 ![My Cover](./assets/sb-cover.jpg)
 
-# 🏟️ Seat Availability Engine with HiLP
+# 🏟️ Seat Availability Engine with Human-in-the-loop
 
 <p align="left">
   <img src="https://img.shields.io/badge/License-MIT-lightgrey" alt="License">
@@ -22,14 +22,15 @@
 
 ## Key Results
 
-| Metric | Result | Description |
+| Metric                      | Result                          | Description |
 | :-------------------------- | :------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------- |
-| 📈 Revenue Growth | **+15%** in Ticket Sales | Enabled by confidently selling tickets predicted to become available, capturing previously lost demand. Confirmed via A/B testing. |
-| 💰 Average Order Value | **+40%** Increase | A direct result of guaranteeing paired seating for families and groups, which encourages larger transactions and improves the fan experience. |
-| 🎯 Forecast Accuracy | **85%** Accuracy | The ML model's predictions significantly outperformed internal domain experts (65% accuracy) and simple averages (45%). |
-| ⭐ Fan Experience | Paired Seating Guaranteed | Transformed the fan purchase journey. Users buy for a zone, not a specific seat, and are guaranteed paired seats assigned 24-48 hours before the match. |
-| 📢 Marketing Efficiency | Improved ROAS **14%** | A wider time window to market the match allows for more effective campaign planning, better segmentation, and improved Return on Ad Spend. |
-| 🛡️ Fraud Reduction | Mitigated Scalping | By delaying the issuance of final tickets until just before kick-off, the system combats fraud and gives a competitive advantage over secondary markets. |
+| 📈 Revenue Growth           | **+15%** in Ticket Sales        | Enabled by confidently selling tickets predicted to become available, capturing previously lost demand.        |
+| 💰 Average Order Value      | **+40%** Increase               | A direct result of guaranteeing paired seating for families and groups, which encourages larger transactions.                                |
+| 🎟️ Average Ticket Value     | **+20%** Increase               | A direct result of enhanced dynamic pricing </br> [![Badge Text](https://img.shields.io/badge/Link_to_Repo-grey?style=flat&logo=github)](https://github.com/tomas-ravalli/fcb-dynamic-pricing) |
+| 🎯 Forecast Accuracy        | **89%** Accuracy (R²)           | The model's predictions of final seat availability were highly accurate, providing a reliable basis for advance sales.                       |
+| ⭐ Fan Experience           | Paired Seating Guaranteed | Transformed the fan purchase journey from a lottery to a reliable process, drastically reducing empty single seats and improving atmosphere. |
+| 📢 Marketing Efficiency     | Improved ROAS **14%** | A wider time window to market the match allows for more effective campaign planning and better Return on Ad Spend.                  |
+| 🛡️ Fraud Reduction          | Mitigated scalping | By delaying the issuance of physical tickets until 48 hours before kick-off, the system combats fraud and unauthorized resale.             |
 
 ## Overview
 

@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/badge/ML-Supervised-lightgrey" alt="ML Task">
 </p>
 
-> An ML system that forecasts stadium seat availability for football matches. **Objective:** To solve the supply-demand imbalance in ticket sales by using machine learning to predict seat availability, maximizing matchday revenue and improving the fan experience at the stadium.
+> An ML system that forecasts seat availability per stadium zone for football matches. **Objective:** To solve the supply-demand imbalance in ticket sales by using machine learning to predict seat availability, maximizing matchday revenue and improving the fan experience at the stadium.
 
 ### Outline
 
@@ -24,13 +24,15 @@
 
 | Metric                      | Result                          | Description |
 | :-------------------------- | :------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------- |
-| 📈 Revenue Growth           | **+15%** in Ticket Sales        | Enabled by confidently selling tickets predicted to become available, capturing previously lost demand.        |
-| 💰 Average Order Value      | **+40%** Increase               | A direct result of guaranteeing paired seating for families and groups, which encourages larger transactions.                                |
-| 🎟️ Average Ticket Value     | **+20%** Increase               | A direct result of enhanced dynamic pricing </br> [![Badge Text](https://img.shields.io/badge/Link_to_Repo-grey?style=flat&logo=github)](https://github.com/tomas-ravalli/fcb-dynamic-pricing) |
-| 🎯 Forecast Accuracy        | **89%** Accuracy (R²)           | The model's predictions of final seat availability were highly accurate, providing a reliable basis for advance sales.                       |
+| 📈 Revenue Growth             | **+15%** Increase       | Enabled by confidently selling tickets (+5%) predicted to become available, capturing previously lost demand, combined with a higher AOV and ATV.        |
+| 💰 Average Order Value      | **+20%** Increase               | A direct result of guaranteeing paired seating for families and groups, which encourages larger transactions.                                |
+| 🎟️ Average Ticket Value     | **+10%** Increase               | Forecasting supply far in advance, enabled a more aggressive dynamic pricing strategy. </br> [![Badge Text](https://img.shields.io/badge/Link_to_Repo-grey?style=flat&logo=github)](https://github.com/tomas-ravalli/fcb-dynamic-pricing) |
+| 🎯 Forecast Accuracy        | **85%** (R²)           | The model's predictions of final seat availability were highly accurate, providing a reliable basis for advance sales.                       |
 | ⭐ Fan Experience           | Paired Seating Guaranteed | Transformed the fan purchase journey from a lottery to a reliable process, drastically reducing empty single seats and improving atmosphere. |
 | 📢 Marketing Efficiency     | Improved ROAS **14%** | A wider time window to market the match allows for more effective campaign planning and better Return on Ad Spend.                  |
 | 🛡️ Fraud Reduction          | Mitigated scalping | By delaying the issuance of physical tickets until 48 hours before kick-off, the system combats fraud and unauthorized resale.             |
+
+The model predicts which seats will become available long before the members officially release them. This allows the club to open sales for this "future" inventory immediately, directly meeting the high early demand from fans who would have otherwise seen a "sold out" message. More availability when demand is highest naturally leads to more tickets being sold. Also, with the model, the dynamic pricing engine knows the true expected final supply. It can set prices based on the actual supply-demand curve for the entire match, not just the few seats available today. This allows for more aggressive pricing early on and avoids last-minute price drops to sell off fragmented inventory. Lastly, By forecasting availability at a granular (zonal) level, the system can confidently guarantee paired and group seating weeks in advance. This capability is highly valuable to families and groups, encouraging them to buy more tickets in a single transaction, a behavior that was previously difficult or impossible.
 
 ## Overview
 
@@ -162,7 +164,7 @@ The success of the SmartBooking system hinges on the accuracy of its core foreca
 | :--- | :--- |
 | Averages (Mean, Median, etc.) | 45% |
 | Domain Experts | 65% |
-| **Machine Learning Model** | **85%** |
+| **Machine Learning Model** | **85%** (R²) |
 
 *Table: Comparison of prediction accuracy across different methods.*
 

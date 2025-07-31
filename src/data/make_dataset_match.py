@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import datetime
+import os
 
 def generate_match_data(club_members_df, num_matches=10, zones=['A', 'B', 'C', 'D']):
     """
@@ -132,8 +133,8 @@ def generate_match_data(club_members_df, num_matches=10, zones=['A', 'B', 'C', '
 
 if __name__ == '__main__':
     # --- Configuration ---
-    MEMBERS_DATA_FILENAME = 'club_members_app.csv'
-    OUTPUT_FILENAME = 'match_data.csv'
+    MEMBERS_DATA_FILENAME = 'data/03_synthetic/club_members_app.csv'
+    OUTPUT_FILENAME = 'data/03_synthetic/match_data.csv'
 
     # --- Execution ---
     try:
@@ -144,6 +145,11 @@ if __name__ == '__main__':
         match_data = generate_match_data(club_members_data)
 
         # --- Save to CSV ---
+        # Ensure the output directory exists
+        output_dir = os.path.dirname(OUTPUT_FILENAME)
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+            
         match_data.to_csv(OUTPUT_FILENAME, index=False)
         print(f"\nSuccessfully generated synthetic match data.")
         print(f"Total rows: {len(match_data)}")

@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import datetime
 import random
+import os
 
 def generate_club_members_data(
     num_matches=10,
@@ -82,12 +83,17 @@ def generate_club_members_data(
 
 if __name__ == '__main__':
     # --- Configuration ---
-    OUTPUT_FILENAME = 'club_members_app.csv'
+    OUTPUT_FILENAME = 'data/03_synthetic/club_members_app.csv'
 
     # --- Execution ---
     synthetic_data = generate_club_members_data()
     
     # --- Save to CSV ---
+    # Ensure the output directory exists
+    output_dir = os.path.dirname(OUTPUT_FILENAME)
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+        
     synthetic_data.to_csv(OUTPUT_FILENAME, index=False)
     print(f"\nSuccessfully generated synthetic data.")
     print(f"Total rows: {len(synthetic_data)}")

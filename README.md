@@ -93,7 +93,7 @@ The model uses a wide range of features, categorized to ensure a holistic view o
 | :--- | :--- | :--- |
 | **Match** | Weekday, Month (Seasonality), Kick-off Time, Competition, Days-to-match, Match-day (True/False) | Core temporal and event-specific details. |
 | **Opponent** | Position, Points/Goals difference, FIFA ranking, EA Sports Ranking, Derby/Clásico (True/False) | Quantifies the opponent's quality and the match's importance. |
-| **Team Momentum**| Team Position, Last match result, Goals made minus goals received, Top player injured (True/False) | Captures the team's current form and fan excitement. |
+| **Team Momentum**| Team Position, Last match lost (True/False), Goals made minus goals received, Top player injured (True/False) | Captures the team's current form and fan excitement. |
 | **Sales & Stock** | Sales historical data, Seats release historical data, Ticket prices | Historical supply, demand, and pricing information. |
 | **Members & Zones**| Average seat release per zone, Member demographics, Stadium zone, Club's incentives to release (True/False) | Member-specific behavior and zone-level characteristics. |
 | **Fans Web & App** | Navigational data, Fan segmentation, Visits to match landing page, Conversion rate | Digital analytics signals indicating purchase intent. |

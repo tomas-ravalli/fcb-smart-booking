@@ -78,7 +78,7 @@ The general workflow is as follows:
 
 ## Dataset
 
-To showcase the model's capabilities, this project uses two synthetic datasets that mirror a real-world data engineering pipeline, from raw events to a final modeling table.
+To showcase a realistic data pipeline, this project uses two synthetic datasets: one for raw events and one for time-series modeling.
 
 **1. Raw Event Data: `club_members_app.csv`**
 
@@ -86,15 +86,16 @@ This file simulates the raw, transactional data from the `Club Members App`. Eac
 
 * **Granularity**: Event-level (one row per seat release).
 * **Key Dimensions**: `match_id`, `seat_id`, `member_id`, `zone_id`, `release_timestamp`.
-* **Purpose**: Provides the ground truth for the model's target variable and allows for detailed time-series analysis of release patterns.
+* **Purpose**: Provides the ground truth for the model's target variable and enables the creation of time-dependent features.
 
-**2. Modeling Dataset: `match_data.csv`**
+**2. Time-Series Modeling Dataset: `match_data_timeseries.csv`**
 
-This is the final, aggregated dataset used to train the forecasting model. It combines contextual information about each match with the aggregated release data.
+This is the final, feature-rich dataset used to train the forecasting model. It's structured to allow for dynamic predictions at any point in time before a match.
 
-* **Granularity**: Match-level, per zone (one row per match per zone).
-* **Creation**: The script aggregates `club_members_app.csv` to calculate the total released seats for each match and zone. It then enriches this with dozens of contextual features (opponent, weather, team momentum, etc.).
-* **Target Variable**: `final_released_seats` (Integer) - The total number of seats released for a given match and zone, calculated from the raw event data. This is the value the model aims to predict.
+* **Granularity**: Daily snapshot per match per zone (e.g., one row for Match 1, Zone A at 30 days before kick-off; another for 29 days, etc.).
+* **Creation**: The data script transforms the raw event data into a time-series format. For each day, it calculates features like `seats_released_so_far` and `release_velocity_7d`, then joins them with static contextual features (e.g., opponent, weather).
+* **Target Variable**: `final_released_seats` (Integer) - The total number of seats that will ultimately be released for that match/zone. This value is consistent across all time-steps for a given match.
+
 <details>
 <summary><b>Click to see the full list of features used in the model</b></summary>
 
@@ -133,21 +134,19 @@ The logic is designed to mimic how a real fan's interest level would change base
 
 ## Modeling
 
-The modeling approach is designed to accurately solve a single, critical business problem: predicting the final number of seats that will become available from season ticket holders. This is a classic supervised regression problem. By deconstructing the problem into its key drivers, we can build a model that reliably forecasts this supply.
+The modeling approach is designed to provide dynamic forecasts that update over time. Instead of a single prediction, the system can answer the business question: *"Given everything we know **today**, how many seats will ultimately be returned to the club?"*
+
+### 📈 Dynamic Availability Forecasting
 
 This approach creates a predictive asset that the business can use to make proactive decisions, turning a forecasting model into a direct revenue-generating tool.
-
-### 📈 Availability Forecasting
-
-This stage answers the business question: *"For a given match, how many season ticket seats will ultimately be returned to the club?"*
 
 | Aspect | Description |
 | :--- | :--- |
 | **Model** | An **`XGBoost` Regressor**. |
-| **Rationale** | After exploring several algorithms (including Decision Trees and Neural Networks), XGBoost was chosen for its high performance, speed, and its ability to handle complex, non-linear relationships. It effectively models how factors like opponent strength, day of the week, and team performance interact to influence a member's decision to release their seat. |
-| **Features** | The model uses a rich set of features including match context (`opponent_tier`), temporal factors (`days_until_match`), team performance (`team_position`), and external factors (`holidays`) to build a comprehensive view of the drivers behind seat availability. |
-| **Application** | The model's forecast is delivered as a **recommendation** to the Ticketing Manager. A safety buffer (e.g., 95% of the forecast) is manually applied by the manager to mitigate risk before the final inventory is pushed live. |
-| **Design Choice** | While time-series models could model release patterns over time, a gradient boosting model like `XGBoost` is better suited to predict a single, final outcome (total released seats) based on a wide array of static features for a given match. It excels at capturing the combined impact of all variables at once. |
+| **Rationale** | XGBoost excels at handling the mix of static and dynamic features in the time-series dataset. It can effectively model how the forecast should evolve as new information (like daily seat releases) becomes available closer to the match day. |
+| **Features** | The model uses a rich set of features, including: <br> • **Static Features**: `opponent_position`, `is_derby`, etc. <br> • **Time-Dependent Features**: `days_until_match`, `seats_released_so_far`, `release_velocity_7d`. |
+| **Application** | The model generates a new forecast daily. The Ticketing Manager can monitor how the forecast evolves and apply a safety buffer to the latest prediction before pushing inventory live, allowing for more agile and data-driven inventory management. |
+| **Validation** | Due to the time-series nature of the data, validation must be done carefully to avoid data leakage. A time-based split (e.g., training on the first 7 matches, testing on the last 3) is used to simulate a real-world scenario where the model predicts the future based only on past data. |
 
 <details>
 <summary><b>Click to see the detailed model performance evaluation</b></summary>
@@ -211,28 +210,28 @@ While most of the source code for this project is private, this section outlines
 
 ```bash
 FCB_Smart-Booking/
-├── .gitignore                              # (Public) Specifies files for Git to ignore.
-├── LICENSE                                 # (Public) Project license.
-├── README.md                               # (Public) This project overview.
-├── requirements.txt                        # (Private) The requirements file for the full project.
-├── config.py                               # (Private) Configuration file for paths and parameters.
-├── assets/                                 # (Public) Diagrams and images for documentation.
+├── .gitignore                            # (Public) Specifies files for Git to ignore.
+├── LICENSE                               # (Public) Project license.
+├── README.md                             # (Public) This project overview.
+├── requirements.txt                      # (Private) The requirements file for the full project.
+├── config.py                             # (Private) Configuration file for paths and parameters.
+├── assets/                               # (Public) Diagrams and images for documentation.
 ├── data/
-│   └── 03_synthetic/
-│       └── synthetic_match_data.csv        # (Public) The generated synthetic dataset.
-├── models/                                 # (Private) Stores trained model artifacts.
-│   └── availability_forecast_model.joblib
-├── notebooks/                              # (Private) Jupyter notebooks for analysis.
-│   └── eda.ipynb
+│   └── 03_synthetic/
+│       ├── club_members_app.csv          # (Public) Synthetic raw seat release events.
+│       └── match_data_timeseries.csv     # (Public) The final time-series modeling dataset.
+├── notebooks/
+│   └── eda.ipynb                         # (Private) Exploratory Data Analysis.
 └── src/
-    ├── __init__.py                         # (Private) Makes src a Python package.
+    ├── __init__.py
     ├── data/
-    │   └── make_dataset.py                 # (Public) The script to generate the synthetic data.
-    ├── features/                           # (Private) Scripts for feature engineering.
-    │   └── build_features.py
-    └── models/                             # (Private) Scripts for model training and prediction.
-        ├── train_availability_model.py
-        └── predict_availability.py
+    │   ├── make_dataset_members.py       # (Public) Script to generate the members app data.
+    │   └── make_dataset_match.py         # (Public) Script to generate the final time-series data.
+    ├── features/
+    │   └── build_features.py             # (Private) Feature engineering scripts.
+    └── models/
+        ├── train_availability_model.py   # (Private) Script for model training.
+        └── predict_availability.py       # (Private) Script for generating predictions.
 ```
 
 </br>

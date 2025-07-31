@@ -89,18 +89,14 @@ By combining historical data with external factors like match importance and wea
 
 The model uses a wide range of features, categorized to ensure a holistic view of supply and demand drivers.
 
-| Category | Features | Description |
-| :--- | :--- | :--- |
-| **Match** | Weekday, Month (Seasonality), Kick-off Time, Competition, Days-to-match, Match-day (True/False) | Core temporal and event-specific details. |
-| **Opponent** | Position, Points/Goals difference, FIFA ranking, EA Sports Ranking, Derby/Clásico (True/False) | Quantifies the opponent's quality and the match's importance. |
-| **Team Momentum**| Team Position, Last match lost (True/False), Goals made minus goals received, Top player injured (True/False) | Captures the team's current form and fan excitement. |
-| **Sales & Stock** | Sales historical data, Seats release historical data, Ticket prices | Historical supply, demand, and pricing information. |
-| **Members & Zones**| Average seat release per zone, Member demographics, Stadium zone, Club's incentives to release (True/False) | Member-specific behavior and zone-level characteristics. |
-| **Fans Web & App** | Navigational data, Fan segmentation, Visits to match landing page, Conversion rate | Digital analytics signals indicating purchase intent. |
-| **Weather** | Storm (True/False), Rain (True/False), Wind (True/False) | Weather forecasts that can influence a local member's decision to attend. |
-| **External Factors**| Holiday (True/False), Day before holiday (True/False), City disturbances (True/False), New player debuting (True/False), Popular concert in city (True/False) | Macro-level factors that can impact attendance. |
-
-- **`final_released_seats`** (Integer): **(Target Variable)** The final, total number of seats that were released by season ticket holders in that zone for that match. This is the value the model aims to predict.
+| Category          | Features                                                                                 | Description                                                      |
+| :---------------- | :--------------------------------------------------------------------------------------- | :--------------------------------------------------------------- |
+| **Match** | `weekday`, `month`, `kick-off_time`, `competition`, `is_weekend`                           | Core temporal and event-specific details for the match.          |
+| **Opponent** | `opponent_position`, `is_derby`                                                          | Quantifies the opponent's quality and the match's rivalry level. |
+| **Team Momentum** | `team_position`, `last_match_lost`, `goal_difference_last_5`, `top_player_injured`       | Captures the home team's recent performance and status.          |
+| **Weather** | `is_rain`, `is_storm`, `is_wind`                                                         | Forecasted weather conditions that can influence attendance.     |
+| **External** | `is_holiday`, `day_before_holiday`, `new_player_debuting`, `popular_concert_in_city` | External events and factors that can impact attendance decisions.|
+> **`final_released_seats`**[Target Variable]**: The final, total number of seats that were released by season ticket holders in that zone for that match. This is the value the model aims to predict.
 
 </details>
 

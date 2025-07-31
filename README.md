@@ -39,7 +39,7 @@
 The core business problem originates with the club's membership model. Approximately 85% of the stadium's 100,000 seats are allocated to season ticket holders (club members). This and other factors leaves only about 9,500 seats available for general sale from day one. Members who cannot attend a match can release their seat back to the Club for resale via the official `Club Members App`.
 
 <p align="center">
-  <img src="./assets/sb-slss.jpeg" alt="Club members app" width="800">
+  <img src="./assets/sb-slss.jpeg" alt="Club members app" width="400">
   <br>
   <em>Fig. 1: Seat release for multiple matches from the Club's Members App.</em>
 </p>

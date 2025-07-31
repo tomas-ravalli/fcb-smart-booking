@@ -38,12 +38,18 @@
 
 The core business problem originates with the club's membership model. Approximately 85% of the stadium's 100,000 seats are allocated to season ticket holders (club members). This and other factors leaves only about 9,500 seats available for general sale from day one. Members who cannot attend a match can release their seat back to the Club for resale via the official `Club Members App`.
 
-However, member behavior creates a massive supply-demand gap: **on average, 40% of seats are freed up within the last 72 hours of a match**, while fan demand is already high weeks in advance. This mismatch leads to lost revenue, a poor fan experience with "not-available" messages, and fragmented single seats that are hard to sell. The diagram below illustrates the supply-demand gap the system was built to solve.
+<p align="center">
+  <img src="./assets/sb-slss.jpeg" alt="Club members app" width="800">
+  <br>
+  <em>Fig. 1: Seat release for multiple matches from the Club's Members App.</em>
+</p>
+
+However, member behavior creates a massive supply-demand gap: **on average, 40% of members seats are released within the last 72 hours of a match**, while fan demand is already high weeks in advance. This mismatch leads to lost revenue, a poor fan experience with "not-available" messages, and fragmented single seats that are hard to sell. The diagram below illustrates the supply-demand gap the system was built to solve.
 
 <p align="center">
   <img src="./assets/sb-sdg.png" alt="Supply-demand gap" width="1500">
   <br>
-  <em>Fig. 1: The supply-demand gap between early fan demand and late seat releases.</em>
+  <em>Fig. 2: The supply-demand gap between early fan demand and late seat releases.</em>
 </p>
 
 The **Seats Availability Engine** (AKA SmartBooking) was designed to bridge this gap. It acts as a forecasting layer, using machine learning to predict how many seats will become available per stadium zone. A **Ticketing Manager** then reviews this forecast, applies business logic and safety margins, and makes the final decision on how much inventory to push to the live ticketing system. This "human-in-the-loop" approach combines predictive power with expert oversight.
@@ -66,7 +72,7 @@ The general workflow is as follows:
 <p align="center">
   <img src="./assets/sb-scd.png" alt="System context diagram" width="850">
     <br>
-  <em>Fig. 2: [System Context Diagram] Seat Availability Engine.</em>
+  <em>Fig. 3: [System Context Diagram] Seat Availability Engine.</em>
 </p>
 
 

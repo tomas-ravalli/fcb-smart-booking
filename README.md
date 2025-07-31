@@ -91,14 +91,14 @@ The model uses a wide range of features, categorized to ensure a holistic view o
 
 | Category | Features | Description |
 | :--- | :--- | :--- |
-| **Match** | Day/Month/Time, Competition, Days-to-match, # Matchday | Core temporal and event-specific details. |
-| **Rival** | Position, Points/Goals difference, FIFA ranking, # Trophies, Derby/Clásico | Quantifies the opponent's quality and the match's importance. |
-| **Barça Momentum**| Barça Position, Last result, Goals +/-, Top player injured | Captures the team's current form and fan excitement. |
-| **Sales and Stock** | Sales historical data, Free-up seats historical data, Ticket prices | Historical supply, demand, and pricing information. |
-| **Members and Zones**| Max/Avg free-up per zone, Type of member, Zone, `Seient Lliure` incentives | Member-specific behavior and zone-level characteristics. |
-| **Web** | Navigational data, User segmentation, Visits to checkout | Digital analytics signals indicating purchase intent. |
-| **Weather** | Storm, Rain, Wind | Weather forecasts that can influence a local member's decision to attend. |
-| **External Factors**| Holidays, Day before holiday, Political disturbances, New player(s) | Macro-level factors that can impact attendance. |
+| **Match** | Weekday, Month (Seasonality), Kick-off Time, Competition, Days-to-match, Match-day (True/False) | Core temporal and event-specific details. |
+| **Opponent** | Position, Points/Goals difference, FIFA ranking, EA Sports Ranking, Derby/Clásico (True/False) | Quantifies the opponent's quality and the match's importance. |
+| **Team Momentum**| Team Position, Last match result, Goals made minus goals received, Top player injured (True/False) | Captures the team's current form and fan excitement. |
+| **Sales & Stock** | Sales historical data, Seats release historical data, Ticket prices | Historical supply, demand, and pricing information. |
+| **Members & Zones**| Average seat release per zone, Member demographics, Stadium zone, Club's incentives to release (True/False) | Member-specific behavior and zone-level characteristics. |
+| **Fans Web & App** | Navigational data, Fan segmentation, Visits to match landing page, Conversion rate | Digital analytics signals indicating purchase intent. |
+| **Weather** | Storm (True/False), Rain (True/False), Wind (True/False) | Weather forecasts that can influence a local member's decision to attend. |
+| **External Factors**| Holiday (True/False), Day before holiday (True/False), City disturbances (True/False), New player debuting (True/False), Popular concert in city (True/False) | Macro-level factors that can impact attendance. |
 
 - **`final_released_seats`** (Integer): **(Target Variable)** The final, total number of seats that were released by season ticket holders in that zone for that match. This is the value the model aims to predict.
 

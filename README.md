@@ -78,10 +78,23 @@ The general workflow is as follows:
 
 ## Dataset
 
-To showcase the model's capabilities, this repository uses a synthetically generated dataset engineered to mirror the complexity and statistical properties of real-world `Seient Lliure` data. The feature set is based directly on the variables used in the production model, which are grouped into logical categories to capture every angle of the problem.
+To showcase the model's capabilities, this project uses two synthetic datasets that mirror a real-world data engineering pipeline, from raw events to a final modeling table.
 
-By combining historical data with external factors like match importance and weather, we can build a feature set that accurately predicts a member's likelihood of releasing their seat.
+**1. Raw Event Data: `club_members_app.csv`**
 
+This file simulates the raw, transactional data from the `Club Members App`. Each row represents a single event where a season ticket holder releases their seat for an upcoming match.
+
+* **Granularity**: Event-level (one row per seat release).
+* **Key Dimensions**: `match_id`, `seat_id`, `member_id`, `zone_id`, `release_timestamp`.
+* **Purpose**: Provides the ground truth for the model's target variable and allows for detailed time-series analysis of release patterns.
+
+**2. Modeling Dataset: `match_data.csv`**
+
+This is the final, aggregated dataset used to train the forecasting model. It combines contextual information about each match with the aggregated release data.
+
+* **Granularity**: Match-level, per zone (one row per match per zone).
+* **Creation**: The script aggregates `club_members_app.csv` to calculate the total released seats for each match and zone. It then enriches this with dozens of contextual features (opponent, weather, team momentum, etc.).
+* **Target Variable**: `final_released_seats` (Integer) - The total number of seats released for a given match and zone, calculated from the raw event data. This is the value the model aims to predict.
 <details>
 <summary><b>Click to see the full list of features used in the model</b></summary>
 
@@ -100,11 +113,23 @@ The model uses a wide range of features, categorized to ensure a holistic view o
 
 </details>
 
+
 ### Match Excitement Factor
 
-To create a realistic dataset, the generation script doesn't just create random numbers. Instead, it simulates the underlying market dynamics by creating a unified **"Match Excitement Factor"**. This single, powerful variable acts as the primary driver for most of the demand signals in the dataset.
+To create a realistic dataset, the generation script doesn't just create random numbers. Instead, it simulates the underlying market dynamics by creating a unified **"Match Excitement Factor"**. This single variable acts as the primary driver for most of the supply signals in the dataset.
 
-This systemic approach ensures that the relationships between the features in the synthetic dataset are correlated in a logical and realistic way, making it a robust foundation for building and testing a demand forecasting model.
+The logic is designed to mimic how a real fan's interest level would change based on the context of a match:
+
+1.  **Starts with the opponent:** The excitement level begins with the quality of the opponent (`opponent_tier`). A top-tier opponent naturally generates more interest.
+
+2.  **Adjusts for context:** The base excitement is then adjusted up or down based on several real-world factors:
+    * **League position:** Excitement increases slightly if the team is high in the league standings.
+    * **Player injuries:** Excitement decreases significantly if a star player is injured, especially for a high-profile match.
+    * **Match importance:** Excitement drops for less meaningful matches, such as when the league winner is already known.
+    * **Holidays & weekdays:** Matches near holidays get a boost in excitement, while weekday matches see a slight decrease.
+
+3.  **Drives demand signals:** The final "Match Excitement Factor" is then used to generate all the other demand signals. For example, a match with a high excitement score will also have higher `google_trends_index`, more positive `social_media_sentiment`, and more `internal_search_trends`.
+
 
 ## Modeling
 

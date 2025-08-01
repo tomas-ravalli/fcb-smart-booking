@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/badge/ML-Supervised-lightgrey" alt="ML Task">
 </p>
 
-> An ML system that forecasts seat availability per stadium zone for football matches. **Objective:** To solve the supply-demand imbalance in ticket sales by using machine learning to predict seat availability, maximizing matchday revenue and improving the fan experience at the stadium.
+> An ML system that forecasts seat availability per stadium zone per match at different time horizons. **Objective:** To solve the supply-demand imbalance in ticket sales by using machine learning to predict seat availability, maximizing revenue and improving the fan experience at the stadium.
 
 ### Outline
 

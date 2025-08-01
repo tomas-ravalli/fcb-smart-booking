@@ -24,19 +24,19 @@
 
 | Metric                      | Result                          | Description |
 | :-------------------------- | :------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------- |
-| 📈 Revenue Growth             | **+15%** Increase       | By forecasting future inventory, the system opened sales early to meet high fan demand, capturing revenue previously lost to "not available" messages. |
+| 📈 Revenue Growth             | **+15%** Increase       | By forecasting future inventory, the system opened sales early to meet fan demand, capturing revenue previously lost to "not available" messages. |
 | 💰 Average Order Value      | **+20%** Increase               | Guaranteed paired and group seating, made possible by granular forecasts, encouraged larger transactions from families and groups.|
-| 🎟️ Average Ticket Value     | **+10%** Increase               | Prices were set based on true forecasted supply instead of limited daily inventory, maximizing revenue per seat powered by a `dynamic pricing engine`. [![Badge Text](https://img.shields.io/badge/Link_to_Repo-grey?style=flat&logo=github)](https://github.com/tomas-ravalli/fcb-dynamic-pricing) |
+| 🎟️ Average Ticket Value     | **+10%** Increase               | Prices were set based on true forecasted supply instead of limited daily inventory, maximizing revenue per seat powered by a `dynamic pricing engine` [![Badge Text](https://img.shields.io/badge/Link_to_Repo-grey?style=flat&logo=github)](https://github.com/tomas-ravalli/fcb-dynamic-pricing) |
 | 🍔 In-Stadium Spend         | **+8%** Increase            | A second-order effect of higher attendance. More fans in the stadium naturally leads to increased sales of food & beverage, and merchandise.  |
 | ⭐ Fan Experience           | Paired Seating Guaranteed | Transformed the fan purchase journey from a lottery to a reliable process, drastically reducing empty single seats and improving atmosphere. |
 | 📢 Marketing Efficiency     | Improved ROAS **14%** | A wider time window to market the match allows for more effective campaign planning and better Return on Ad Spend.                  |
 | 🛡️ Fraud Reduction          | Mitigated scalping | By delaying the dispatching of physical tickets until 48 hours before kick-off, the system combats fraud and unauthorized resale.             |
-| 🎯 Forecast Accuracy        | **85%** (R²)           | The model's predictions of final seat availability were highly accurate, providing a reliable basis for advance sales.                       |
+| 🎯 Forecast Accuracy        | **84%** (R²)           | The model's predictions of final seat availability were highly accurate, providing a reliable basis for advance sales.                       |
 
 
 ## Overview
 
-The core business problem originates with the club's membership model. Approximately 85% of the stadium's 100,000 seats are allocated to season ticket holders (club members). This and other factors leaves only about 9,500 seats available for general sale from day one. Members who cannot attend a match can release their seat back to the Club for resale via the official `Club Members App`.
+The core business problem originates with the club's membership model. Approximately 85% of the stadium's 100,000 seats are owned by season ticket holders (club members). This and other factors leaves only about 10% of stadium seats available for general sale from day one. Members who won't attend a match can release their seat back to the Club for resale via the official `Club Members App`.
 
 <p align="center">
   <img src="./assets/sb-slss.jpeg" alt="Club members app" width="350">
@@ -44,7 +44,7 @@ The core business problem originates with the club's membership model. Approxima
   <em>Fig. 1: Seat release for multiple matches from the Club's Members App.</em>
 </p>
 
-However, member behavior creates a massive supply-demand gap: **on average, 40% of members seats are released within the last 72 hours of a match**, while fan demand is already high weeks in advance. This mismatch leads to lost revenue, a poor fan experience with "not-available" messages, and fragmented single seats that are hard to sell. The diagram below illustrates the supply-demand gap the system was built to solve.
+However, member behavior creates a massive supply-demand gap: **on average, 40% of members seats are released within the last 72 hours of a match**, while fan demand is already high months in advance. This mismatch leads to lost revenue, a poor fan experience with "not-available" messages, and fragmented single seats that are hard to sell. The diagram below illustrates the supply-demand gap the system was built to solve.
 
 <p align="center">
   <img src="./assets/sb-sdg.png" alt="Supply-demand gap" width="1500">
@@ -52,22 +52,17 @@ However, member behavior creates a massive supply-demand gap: **on average, 40% 
   <em>Fig. 2: The supply-demand gap between early fan demand and late seat releases.</em>
 </p>
 
-The **Seats Availability Engine** (AKA SmartBooking) was designed to bridge this gap. It acts as a forecasting layer, using machine learning to predict how many seats will become available per stadium zone. A **Ticketing Manager** then reviews this forecast, applies business logic and safety margins, and makes the final decision on how much inventory to push to the live ticketing system. This "human-in-the-loop" approach combines predictive power with expert oversight.
+The **Seats Availability Engine** (AKA SmartBooking) was designed to bridge this gap. It acts as a forecasting layer, using machine learning to predict how many seats will become available per stadium zone at different time horizons (-30, -15, -10, -5 days before kick-off). A **Ticketing Manager** then reviews this forecast, applies business logic and safety margins, and makes the final decision on how much inventory to push to the live ticketing system. This human-in-the-loop approach combines predictive power with expert oversight.
 
 | 🚩 The Problem | 💡 The Solution |
 | :--------------------------- | :---------------------------- |
-| **"Not available" illusion**: Fans faced "not available" messages, unaware that thousands of seats appear in the last 72 hours. | **Advance availability**: Predicts final seat count weeks in advance, allowing the club to sell tickets for seats that are not yet officially released. |
+| **"Not available" illusion**: Fans faced "not available" messages, unaware that new seats appear in the last 72 hours. | **Advance availability**: Predicts final seat count weeks in advance, allowing the club to sell tickets for seats that are not yet officially released. |
 | **Lost revenue**: High, early demand went unmet due to the delay in seat releases, leading to significant lost revenue for the club. | **Revenue capture**: Unlocks millions in sales by matching early fan demand with manager-approved predicted inventory. |
 | **Poor fan experience**: The unpredictable nature of ticket availability frustrated fans and fueled secondary resale markets. | **Guaranteed experience**: Offers fans, especially families and groups, guaranteed paired seating, improving satisfaction and trust. |
 | **Seat fragmentation**: Last-minute releases often resulted in many isolated single seats that were difficult to sell. | **Optimized occupancy**: By selling seats early and guaranteeing pairs, the system reduces empty singles and maximizes attendance. |
 
 
 ## Architecture
-
-The general workflow is as follows:
-1.  **Data Sources** are ingested, focusing on historical `Club Members App` patterns and contextual match data.
-2.  The **Forecasting Engine** generates a seat availability forecast that is delivered as a recommendation to the Ticketing Manager.
-3.  The **Ticketing Manager** reviews the forecast, applies a safety buffer, and pushes the final, approved inventory to the **Ticketing System**.
 
 <p align="center">
   <img src="./assets/sb-scd.png" alt="System context diagram" width="850">
@@ -158,11 +153,11 @@ The success of the SmartBooking system hinges on the accuracy of its core foreca
 | :--- | :--- |
 | Averages (Mean, Median, etc.) | 45% |
 | Domain Experts | 65% |
-| **Machine Learning Model** | **85%** (R²) |
+| **Machine Learning Model** | **84%** (R²) |
 
 *Table: Comparison of prediction accuracy across different methods.*
 
-The model's **85% accuracy** was deemed highly successful, providing a strong statistical foundation for the business to act on the forecasts with confidence. The model was also interpreted using **SHAP values** to ensure the relationships it learned were logical and explainable to stakeholders.
+The model's **84% accuracy** was deemed highly successful, providing a strong statistical foundation for the business to act on the forecasts with confidence. The model was also interpreted using **SHAP values** to ensure the relationships it learned were logical and explainable to stakeholders.
 
 </details>
 

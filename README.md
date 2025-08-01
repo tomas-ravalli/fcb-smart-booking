@@ -118,6 +118,12 @@ The logic is designed to mimic how a real fan's interest level would change base
 
 The modeling approach is designed to provide dynamic forecasts that update over time. Instead of a single prediction, the system can answer the business question: *"Given everything we know **today**, how many seats will ultimately be released by club members?"*
 
+<p align="left">
+  <img src="./assets/sb-mle.png" alt="ML Engine" width="275">
+  <br>
+  <em>Fig. 4: Seats Availability Engine component.</em>
+</p>
+
 ### 📈 Dynamic Availability Forecasting
 
 This approach creates a predictive asset that the business can use to make proactive decisions.
@@ -129,6 +135,7 @@ This approach creates a predictive asset that the business can use to make proac
 | **Features** | The model uses a rich set of features, including: <br> • **Static Features**: `opponent_position`, `is_derby`, etc. <br> • **Time-Dependent Features**: `days_until_match`, `seats_released_so_far`, `release_velocity_7d`. |
 | **Application** | The model generates a new forecast daily. The Ticketing Manager can monitor how the forecast evolves and apply a safety buffer to the latest prediction before pushing inventory live, allowing for more agile and data-driven inventory management. |
 | **Validation** | Due to the time-series nature of the data, validation must be done carefully to avoid data leakage. A time-based split (e.g., training on the first 7 matches, testing on the last 3) is used to simulate a real-world scenario where the model predicts the future based only on past data. |
+| **Production Trade-offs** | The chosen model provides the best balance between **prediction accuracy**, **serving speed** (latency), and **inference cost**, ensuring strong performance in a live environment. |
 
 <details>
 <summary><b>Click to see the detailed model performance evaluation</b></summary>

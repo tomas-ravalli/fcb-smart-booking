@@ -203,8 +203,8 @@ This rigorous process gave us high confidence that the measured uplift was due t
 
 While most of the source code for this project is private, this section outlines the full structure:
 
-```bash
-FCB_Smart-Booking/
+```
+fcb-smartbooking/
 ├── .gitignore                            # (Public) Specifies files for Git to ignore.
 ├── LICENSE                               # (Public) Project license.
 ├── README.md                             # (Public) This project overview.

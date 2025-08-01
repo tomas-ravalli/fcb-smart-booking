@@ -157,9 +157,9 @@ The model's **84% accuracy** provided a strong statistical foundation for the bu
 
 ### Validation
 
-Validating the model's business impact required moving beyond simple accuracy metrics to rigorously measure its causal effect on revenue. The core question was: "**Does using this model's forecast cause an increase in revenue?**"
+Validating the model's business impact required moving beyond simple accuracy metrics to rigorously measure its causal effect on revenue. The core question was: "*Does using this model's forecast cause an increase in revenue?*"
 
-To answer this, we implemented a two-fold validation framework. This approach confirmed a **+15% increase in total ticket sales revenue**, directly attributable to the SmartBooking ML system.
+To answer this, we implemented a two-fold validation framework. This approach confirmed a **+15% increase in total ticket sales revenue**, directly attributable to the Seat Availability ML system.
 
 <details>
 <summary><b>Click to see the full validation framework</b></summary>
@@ -168,23 +168,23 @@ To answer this, we implemented a two-fold validation framework. This approach co
 
 The first step was to frame the problem correctly. A simple A/B test comparing different matches is invalid due to confounding variables (opponent quality, weather, etc.). Our strategy therefore combined offline and online validation.
 
-* **Offline Validation (Pre-Flight Check):** Before any real-world testing, we performed rigorous backtesting on historical data. This involved training the model on a period of data and evaluating its forecast accuracy on a hold-out set. We used SHAP values to interpret the model's predictions, ensuring it learned logical patterns and wasn't relying on spurious correlations. This validated the model's fundamental soundness.
+* **Offline validation (pre-flight check):** Before any real-world testing, we performed rigorous backtesting on historical data. This involved training the model on a period of data and evaluating its forecast accuracy on a hold-out set. We used SHAP values to interpret the model's predictions, ensuring it learned logical patterns and wasn't relying on spurious correlations. This validated the model's fundamental soundness.
 
-* **Online Validation (Causal Impact Measurement):** To measure the real-world impact, we implemented a quasi-experimental design using **Propensity Score Matching (PSM)**. This statistical technique allowed us to create a fair, "apples-to-apples" comparison group from historical data, effectively simulating a controlled experiment to isolate the model's causal effect on revenue.
+* **Online validation (causal impact measurement):** To measure the real-world impact, we implemented a quasi-experimental design using **Propensity Score Matching (PSM)**. This statistical technique allowed us to create a fair, "apples-to-apples" comparison group from historical data, effectively simulating a controlled experiment to isolate the model's causal effect on revenue.
 
 #### 2. Execution
 
-This phase involved executing the PSM design to get a reliable measurement of the financial lift.
+This phase involved executing the PSM design to get a reliable measurement of the revenue lift.
 
-* **Define Groups**: We established two groups for our analysis:
-    * **Treatment Group**: A set of recent matches where the Ticketing Manager used the SmartBooking forecast to release inventory.
-    * **Control Group**: A large pool of historical matches from seasons where the SmartBooking system did not exist.
+* i. **Define groups**: We established two groups for our analysis:
+    * **Treatment group**: A set of recent matches where the Ticketing Manager used the ML system forecast to release inventory.
+    * **Control group**: A large pool of historical matches from seasons where the ML system did not exist.
 
-* **Build the Propensity Model**: We built a supervised classification model to calculate a "propensity score" for every match in both groups. This score quantifies the character of each match based on its features (opponent tier, competition, day of the week, etc.), representing the probability of it receiving the "treatment."
+* ii. **Build the propensity model**: We built a supervised classification model to calculate a "propensity score" for every match in both groups. This score quantifies the character of each match based on its features (opponent tier, competition, day of the week, etc.), representing the probability of it receiving the "treatment."
 
-* **Match & Compare**: Using a nearest-neighbor matching algorithm, we found a "statistical twin" from the control group for each match in the treatment group. This twin was the historical match with the most similar propensity score, ensuring the comparison was fair.
+* iii. **Match & compare**: Using a nearest-neighbor matching algorithm, we found a "statistical twin" from the control group for each match in the treatment group. This twin was the historical match with the most similar propensity score, ensuring the comparison was fair.
 
-* **Define KPIs**: We measured the difference between the matched pairs across several metrics:
+* iv. **Define KPIs**: We measured the difference between the matched pairs across several metrics:
     * **Primary KPI**: Total Ticket Revenue.
     * **Secondary KPIs**: Final Attendance Rate, Average Order Value (AOV), and the sell-through rate of the predicted inventory.
 
@@ -195,7 +195,7 @@ This rigorous process gave us high confidence that the measured uplift was due t
 
 ## Structure
 
-While most of the source code for this project is private, this section outlines the full structure:
+While most of the source code for this project is private, this section outlines the full structure. You can explore the synthetic data generation logic in `src/data/` to see how the realistic environment was simulated.
 
 ```
 fcb-smartbooking/

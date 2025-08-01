@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/badge/ML-Supervised-lightgrey" alt="ML Task">
 </p>
 
-> An ML system that forecasts seat availability per stadium zone per match at different time horizons. **Objective:** To solve the supply-demand imbalance in ticket sales by using machine learning to predict seat availability, maximizing revenue and improving the fan experience at the stadium.
+> An ML system that forecasts seat availability for each stadium zone per match across multiple time horizons. **Objective:** To solve the supply-demand imbalance in ticket sales by using machine learning to predict seat availability, maximizing revenue and improving the fan experience at the stadium.
 
 ### Outline
 
@@ -52,7 +52,7 @@ However, member behavior creates a massive supply-demand gap: **on average, 40% 
   <em>Fig. 2: The supply-demand gap between early fan demand and late seat releases.</em>
 </p>
 
-The **Seats Availability Engine** (AKA SmartBooking) was designed to bridge this gap. It acts as a forecasting layer, using machine learning to predict how many seats will become available per stadium zone at different time horizons (-30, -15, -10, -5 days before kick-off). A **Ticketing Manager** then reviews this forecast, applies business logic and safety margins, and makes the final decision on how much inventory to push to the live ticketing system. This human-in-the-loop approach combines predictive power with expert oversight.
+The **Seats Availability Engine** (AKA SmartBooking) was designed to bridge this gap. It acts as a forecasting layer, using machine learning to predict how many seats will become available per stadium zone at various time horizons (-30, -15, -10, -5 days before kick-off). A **Ticketing Manager** then reviews this forecast, applies business logic and safety margins, and makes the final decision on how much inventory to push to the live ticketing system. This human-in-the-loop approach combines predictive power with expert oversight.
 
 | 🚩 The Problem | 💡 The Solution |
 | :--------------------------- | :---------------------------- |
@@ -75,26 +75,15 @@ The **Seats Availability Engine** (AKA SmartBooking) was designed to bridge this
 
 To showcase a realistic data pipeline, this project uses two synthetic datasets: one for raw events and one for time-series modeling.
 
-**1. Raw Event Data: `club_members_app.csv`**
+**1. Raw event data: `club_members_app.csv`**
 
-This file simulates the raw, transactional data from the `Club Members App`. Each row represents a single event where a season ticket holder releases their seat for an upcoming match.
+This file simulates the raw data feed from the `Club Members App`, representing a **time-ordered event stream**. Each row is a single transaction with a `release_timestamp`, capturing the moment a season ticket holder releases their seat. This raw, event-level data provides the ground truth for the model's target variable and is the source from which all time-dependent features are engineered.
 
-* **Granularity**: Event-level (one row per seat release).
-* **Key Dimensions**: `match_id`, `seat_id`, `member_id`, `zone_id`, `release_timestamp`.
-* **Purpose**: Provides the ground truth for the model's target variable and enables the creation of time-dependent features.
+**2. Time-Series structured data: `match_data_timeseries.csv`**
 
-**2. Time-Series Modeling Dataset: `match_data_timeseries.csv`**
+This is the final, feature-rich dataset used to train the forecasting model, structured to allow for dynamic predictions at any point in time before a match. Its **granularity** is a **daily snapshot** per match and zone, meaning there is one row for Match 1, Zone A at 30 days before kick-off, another for 29 days, and so on. To create it, the data script transforms the raw event data into this time-series format. For each day, it calculates time-dependent features like **`seats_released_so_far`** and **`release_velocity_7d`** and then joins them with static contextual features like opponent and weather. The **target variable**, **`final_released_seats`**, represents the total number of seats that will ultimately be released for that match and zone. This value remains consistent across all daily snapshots for a given match.
 
-This is the final, feature-rich dataset used to train the forecasting model. It's structured to allow for dynamic predictions at any point in time before a match.
-
-* **Granularity**: Daily snapshot per match per zone (e.g., one row for Match 1, Zone A at 30 days before kick-off; another for 29 days, etc.).
-* **Creation**: The data script transforms the raw event data into a time-series format. For each day, it calculates features like `seats_released_so_far` and `release_velocity_7d`, then joins them with static contextual features (e.g., opponent, weather).
-* **Target Variable**: `final_released_seats` (Integer) - The total number of seats that will ultimately be released for that match/zone. This value is consistent across all time-steps for a given match.
-
-<details>
-<summary><b>Click to see the full list of features used in the model</b></summary>
-
-</br>
+### Features
 
 The model uses a wide range of features, categorized to ensure a holistic view of supply and demand drivers.
 
@@ -106,8 +95,6 @@ The model uses a wide range of features, categorized to ensure a holistic view o
 | **Weather** | `is_rain`, `is_storm`, `is_wind`                                                         | Forecasted weather conditions that can influence attendance.     |
 | **External** | `is_holiday`, `day_before_holiday`, `new_player_debuting`, `popular_concert_in_city` | External events and factors that can impact attendance decisions.|
 > **`final_released_seats`**[Target Variable]**: The final, total number of seats that were released by season ticket holders in that zone for that match. This is the value the model aims to predict.
-
-</details>
 
 
 ### Match Excitement Factor
@@ -129,11 +116,11 @@ The logic is designed to mimic how a real fan's interest level would change base
 
 ## Modeling
 
-The modeling approach is designed to provide dynamic forecasts that update over time. Instead of a single prediction, the system can answer the business question: *"Given everything we know **today**, how many seats will ultimately be returned to the club?"*
+The modeling approach is designed to provide dynamic forecasts that update over time. Instead of a single prediction, the system can answer the business question: *"Given everything we know **today**, how many seats will ultimately be released by club members?"*
 
 ### 📈 Dynamic Availability Forecasting
 
-This approach creates a predictive asset that the business can use to make proactive decisions, turning a forecasting model into a direct revenue-generating tool.
+This approach creates a predictive asset that the business can use to make proactive decisions.
 
 | Aspect | Description |
 | :--- | :--- |

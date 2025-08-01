@@ -52,7 +52,7 @@ However, member behavior creates a massive supply-demand gap: **on average, 40% 
   <em>Fig. 2: The supply-demand gap between early fan demand and late seat releases.</em>
 </p>
 
-The **Seats Availability Engine** (AKA SmartBooking) was designed to bridge this gap. It acts as a forecasting layer, using machine learning to predict how many seats will become available per stadium zone at various time horizons (-30, -15, -10, -5 days before kick-off). A **Ticketing Manager** then reviews this forecast, applies business logic and safety margins, and makes the final decision on how much inventory to push to the live ticketing system. This human-in-the-loop approach combines predictive power with expert oversight.
+The **Seats Availability Engine** (AKA SmartBooking) was designed to bridge this gap. It acts as a forecasting layer, using machine learning to predict how many seats will become available per stadium zone at various time horizons before match day. A **Ticketing Manager** then reviews this forecast, applies business logic and safety margins, and makes the final decision on how much inventory to push to the live ticketing system. This human-in-the-loop approach combines predictive power with expert oversight.
 
 | 🚩 The Problem | 💡 The Solution |
 | :--------------------------- | :---------------------------- |
@@ -133,15 +133,14 @@ This approach creates a predictive asset that the business can use to make proac
 | **Model** | An **`XGBoost` Regressor**. |
 | **Rationale** | XGBoost excels at handling the mix of static and dynamic features in the time-series dataset. It can effectively model how the forecast should evolve as new information (like daily seat releases) becomes available closer to the match day. |
 | **Features** | The model uses a rich set of features, including: <br> • **Static Features**: `opponent_position`, `is_derby`, etc. <br> • **Time-Dependent Features**: `days_until_match`, `seats_released_so_far`, `release_velocity_7d`. |
-| **Application** | The model generates a new forecast daily. The Ticketing Manager can monitor how the forecast evolves and apply a safety buffer to the latest prediction before pushing inventory live, allowing for more agile and data-driven inventory management. |
-| **Validation** | Due to the time-series nature of the data, validation must be done carefully to avoid data leakage. A time-based split (e.g., training on the first 7 matches, testing on the last 3) is used to simulate a real-world scenario where the model predicts the future based only on past data. |
+| **Application** | The model can generate a new forecast at **different time horizons** (e.g., daily). This allows the Ticketing Manager to monitor how the prediction evolves as new data becomes available and apply a safety buffer to the latest forecast, enabling more agile inventory management. |
 | **Production Trade-offs** | The chosen model provides the best balance between **prediction accuracy**, **serving speed** (latency), and **inference cost**, ensuring strong performance in a live environment. |
 
 <details>
 <summary><b>Click to see the detailed model performance evaluation</b></summary>
 </br>
 
-The success of the SmartBooking system hinges on the accuracy of its core forecast. The model was evaluated against simpler benchmarks to prove its value.
+The model was evaluated against simpler benchmarks to prove its value, as there was no intelligent system in place before to compare against:
 
 | Source of Prediction | Accuracy |
 | :--- | :--- |
@@ -149,9 +148,7 @@ The success of the SmartBooking system hinges on the accuracy of its core foreca
 | Domain Experts | 65% |
 | **Machine Learning Model** | **84%** (R²) |
 
-*Table: Comparison of prediction accuracy across different methods.*
-
-The model's **84% accuracy** was deemed highly successful, providing a strong statistical foundation for the business to act on the forecasts with confidence. The model was also interpreted using **SHAP values** to ensure the relationships it learned were logical and explainable to stakeholders.
+The model's **84% accuracy** provided a strong statistical foundation for the business to act on the forecasts with confidence. The model was also interpreted using **SHAP values** to ensure the relationships it learned were logical and explainable to stakeholders.
 
 </details>
 
@@ -159,12 +156,12 @@ The model's **84% accuracy** was deemed highly successful, providing a strong st
 
 Validating the model's business impact required moving beyond simple accuracy metrics to rigorously measure its causal effect on revenue. The core question was: "**Does using this model's forecast cause an increase in revenue?**"
 
-To answer this, we implemented a two-fold validation framework. This approach confirmed a **+15% increase in total ticket sales revenue**, directly attributable to the SmartBooking system.
+To answer this, we implemented a two-fold validation framework. This approach confirmed a **+15% increase in total ticket sales revenue**, directly attributable to the SmartBooking ML system.
 
 <details>
 <summary><b>Click to see the full validation framework</b></summary>
 
-#### 1. Deconstruct the System: The Validation Strategy
+#### 1. Strategy
 
 The first step was to frame the problem correctly. A simple A/B test comparing different matches is invalid due to confounding variables (opponent quality, weather, etc.). Our strategy therefore combined offline and online validation.
 
@@ -172,7 +169,7 @@ The first step was to frame the problem correctly. A simple A/B test comparing d
 
 * **Online Validation (Causal Impact Measurement):** To measure the real-world impact, we implemented a quasi-experimental design using **Propensity Score Matching (PSM)**. This statistical technique allowed us to create a fair, "apples-to-apples" comparison group from historical data, effectively simulating a controlled experiment to isolate the model's causal effect on revenue.
 
-#### 2. Quantify the Components: The Execution Plan
+#### 2. Execution
 
 This phase involved executing the PSM design to get a reliable measurement of the financial lift.
 
@@ -188,7 +185,7 @@ This phase involved executing the PSM design to get a reliable measurement of th
     * **Primary KPI**: Total Ticket Revenue.
     * **Secondary KPIs**: Final Attendance Rate, Average Order Value (AOV), and the sell-through rate of the predicted inventory.
 
-This rigorous process gave us high confidence that the measured uplift was due to the SmartBooking system and not external factors.
+This rigorous process gave us high confidence that the measured uplift was due to the ML system and not external or random factors.
 
 </details>
 

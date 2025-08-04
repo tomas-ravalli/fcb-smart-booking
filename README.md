@@ -97,7 +97,7 @@ The model uses a wide range of features, categorized to ensure a holistic view o
 | **Team Momentum** | `team_position`, `last_match_lost`, `goal_difference_last_5`, `top_player_injured`       | Captures the home team's recent performance and status.          |
 | **Weather** | `is_rain`, `is_storm`, `is_wind`                                                         | Forecasted weather conditions that can influence attendance.     |
 | **External** | `is_holiday`, `day_before_holiday`, `new_player_debuting`, `popular_concert_in_city` | External events and factors that can impact attendance decisions.|
-> **`final_released_seats`**[Target Variable]**: The final, total number of seats that were released by season ticket holders in that zone for that match. This is the value the model aims to predict.
+> **`final_released_seats`**[Target Variable]: The final, total number of seats that were released by season ticket holders in that zone for that match. This is the value the model aims to predict.
 
 
 ### Match Excitement Factor

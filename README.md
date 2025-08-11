@@ -3,7 +3,7 @@
 # Seat Availability Engine with Human-in-the-loop
 
 <p align="left">
-  <img src="https://img.shields.io/badge/License-MIT-lightgrey" alt="License">
+ <img src="https://img.shields.io/badge/License-MIT-lightgrey" alt="License">
 </p>
 
 > An ML system that forecasts seat availability for each stadium zone per match across multiple time horizons. **Objective:** To solve the supply-demand imbalance in ticket sales by using machine learning to predict seat availability, maximizing revenue and improving the fan experience at the stadium.

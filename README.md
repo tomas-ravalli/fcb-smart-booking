@@ -104,10 +104,9 @@ This approach creates a predictive asset that the business can use to make proac
 
 | Aspect | Description |
 | :--- | :--- |
-| **Model** | An **`XGBoost` Regressor**. |
+| **Model** | **`XGBoost`**. |
 | **Rationale** | XGBoost excels at handling the mix of static and dynamic features in the time-series dataset. It can effectively model how the forecast should evolve as new information (like daily seat releases) becomes available closer to the match day. |
-| **Features** | The model uses a rich set of features, including: <br> • **Static Features**: `opponent_position`, `is_derby`, etc. <br> • **Time-Dependent Features**: `days_until_match`, `seats_released_so_far`, `release_velocity_7d`. |
-| **Application** | The model can generate a new forecast at **different time horizons** (e.g., daily). This allows the Ticketing Manager to monitor how the prediction evolves as new data becomes available and apply a safety buffer to the latest forecast, enabling more agile inventory management. |
+| **Application** | The model can generate a new forecast in **7 timeframes** (1/3/7/14/30/90). This allows the Ticketing Manager to monitor how the prediction evolves as new data becomes available and apply a safety buffer to the latest forecast, enabling more agile inventory management. |
 | **Production Trade-offs** | The chosen model provides the best balance between **prediction accuracy**, **serving speed** (latency), and **inference cost**, ensuring strong performance in a live environment. |
 
 <details>
@@ -193,8 +192,7 @@ fcb-smartbooking/
 </br>
 
 > [!WARNING]
-> * **Data:** The data in this repository is synthetically generated for demonstration purposes and it may not mirror the statistical properties of the original dataset.
-> * **Complexity:** This repository provides a high-level demonstration of the project's architecture and methodology. Certain implementation details and model complexities have been simplified for clarity.
+This repository provides a high-level demonstration of the project's architecture and methodology. Certain implementation details and model complexities have been simplified for clarity.
 
 </br>
 

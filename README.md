@@ -15,6 +15,7 @@
 - [Architecture](#architecture)
 - [Dataset](#dataset)
 - [Modeling](#modeling)
+- [Usage](#usage)
 - [Structure](#structure)
 
 ---
@@ -161,6 +162,17 @@ This phase involved executing the PSM design to get a reliable measurement of th
 This rigorous process gave us high confidence that the measured uplift was due to the ML system and not external or random factors.
 
 </details>
+
+## Usage
+
+The Seats Availability Engine operates on a **human-in-the-loop** model, empowering the Ticketing Manager with data-driven forecasts to make strategic decisions. The system does not automatically push inventory to the market; instead, it provides a reliable forecast that allows for proactive and controlled inventory management. This approach blends the predictive power of machine learning with expert business judgment.
+
+1.  **Forecast generation**: The **Seat Availability Engine** predicts the final number of released seats for an upcoming match, providing a forecast for each stadium zone at various time horizons.
+2.  **Human review & risk management**: The **Ticketing Manager** reviews these evolving forecasts via a dashboard. Based on the model's prediction and their own business expertise, they decide when to apply a **risk buffer** (a safety margin) and how many seats to release to the market.
+3.  **Strategic inventory release**: The manager strategically manages this predicted inventory, pushing a portion of the forecast to the live ticketing system to meet early fan demand. This aligns supply with the market dynamics, unlocking revenue that was previously lost.
+4.  **Fan purchase**: Fans can now purchase tickets for popular matches far in advance, improving their experience and allowing the club to capture revenue earlier.
+
+The output of the model is a crucial component for the **Ticketing Manager** to align seat supply with fan demand dynamics. The process ensures that inventory is managed responsibly, maximizing revenue while maintaining a positive and predictable fan experience.
 
 
 ## Structure

@@ -105,7 +105,7 @@ This approach creates a predictive asset that the business can use to make proac
 
 | Aspect | Description |
 | :--- | :--- |
-| **Model** | **`XGBoost`**. |
+| **Model** | **`XGBoost`** |
 | **Rationale** | XGBoost excels at handling the mix of static and dynamic features in the time-series dataset. It can effectively model how the forecast should evolve as new information (like daily seat releases) becomes available closer to the match day. |
 | **Application** | The model can generate a new forecast in **7 timeframes** (1/3/7/14/30/90). This allows the Ticketing Manager to monitor how the prediction evolves as new data becomes available and apply a safety buffer to the latest forecast, enabling more agile inventory management. |
 | **Production Trade-offs** | The chosen model provides the best balance between **prediction accuracy**, **serving speed** (latency), and **inference cost**, ensuring strong performance in a live environment. |

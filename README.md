@@ -1,4 +1,6 @@
-![My Cover](./assets/sb-cover.jpg)
+<p align="center">
+<img src="./assets/sb-cover.jpg">
+</p>
 
 # Seat Availability Engine with Human-in-the-loop
 

@@ -2,7 +2,7 @@
 
 # Seat Availability Engine with Human-in-the-loop
 
-<p align="center">
+<p align="left">
  <img src="https://img.shields.io/badge/License-MIT-lightgrey" alt="License">
 </p>
 
